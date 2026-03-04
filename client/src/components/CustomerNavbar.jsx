@@ -6,7 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 const CustomerNavbar = ({ onNavigate }) => {
     const [user, setUser] = useState(null);
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState(() => getTheme());
     const { language, setLanguage, t } = useLanguage();
 
     useEffect(() => {
@@ -17,7 +17,6 @@ const CustomerNavbar = ({ onNavigate }) => {
     }, []);
 
     useEffect(() => {
-        setTheme(getTheme());
         const handler = () => setTheme(getTheme());
         window.addEventListener('theme-changed', handler);
         window.addEventListener('storage', handler);
@@ -26,6 +25,10 @@ const CustomerNavbar = ({ onNavigate }) => {
             window.removeEventListener('storage', handler);
         };
     }, []);
+
+    const handleThemeToggle = () => {
+        setTheme(toggleTheme());
+    };
 
     const handleLogout = () => {
         logout(onNavigate);
@@ -90,7 +93,7 @@ const CustomerNavbar = ({ onNavigate }) => {
                         </select>
                         {/* Theme Toggle */}
                         <motion.button
-                            onClick={() => setTheme(toggleTheme())}
+                            onClick={handleThemeToggle}
                             className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}

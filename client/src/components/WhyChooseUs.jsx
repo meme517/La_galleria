@@ -44,10 +44,11 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-20 sm:py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-orange-50 dark:from-gray-950 dark:to-gray-900">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 sm:py-24 lg:py-32 bg-gradient-to-br from-cyan-50/50 via-transparent to-pink-50/40 dark:from-cyan-950/20 dark:to-pink-950/15">
+      <div className="brand-container">
         <ScrollReveal>
           <div className="text-center mb-16">
+            <span className="brand-chip mb-4">Why Guests Return</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               {t('why.title', 'Why Choose Us')}
             </h2>
@@ -61,10 +62,10 @@ const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <ScrollReveal key={feature.title} delay={index * 0.1}>
               <motion.div
-                className="text-center"
+                className="brand-card rounded-2xl text-center p-6"
                 whileHover={{ y: -5 }}
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full text-primary mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-500/10 rounded-full text-cyan-600 dark:bg-cyan-400/20 dark:text-cyan-300 mb-6">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">

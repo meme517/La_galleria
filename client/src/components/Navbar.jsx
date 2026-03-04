@@ -8,7 +8,7 @@ const Navbar = ({ onNavigate }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(() => getTheme());
   const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
@@ -49,7 +49,6 @@ const Navbar = ({ onNavigate }) => {
   }, []);
 
   useEffect(() => {
-    setTheme(getTheme());
     const handler = () => setTheme(getTheme());
     window.addEventListener('theme-changed', handler);
     window.addEventListener('storage', handler);
@@ -58,6 +57,10 @@ const Navbar = ({ onNavigate }) => {
       window.removeEventListener('storage', handler);
     };
   }, []);
+
+  const handleThemeToggle = () => {
+    setTheme(toggleTheme());
+  };
 
   const handleLogout = () => {
     logout(onNavigate);
@@ -83,11 +86,11 @@ const Navbar = ({ onNavigate }) => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.25, 0.25, 0, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-white/95 dark:bg-gray-900/90 backdrop-blur-md shadow-lg py-3'
+          ? 'bg-white/80 dark:bg-slate-950/70 backdrop-blur-xl border-b border-cyan-200/40 dark:border-cyan-400/20 shadow-lg py-3'
           : 'bg-transparent py-5'
         }`}
     >
-      <div className="container mx-auto max-w-[1700px] px-4 sm:px-6 lg:px-8 overflow-x-hidden md:overflow-x-auto no-scrollbar">
+      <div className="brand-container max-w-[1700px] overflow-x-hidden md:overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-3 lg:gap-4 flex-nowrap min-w-max">
           <motion.a
             href="#home"
@@ -95,7 +98,7 @@ const Navbar = ({ onNavigate }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="text-primary">La</span>
+            <span className="text-cyan-600 dark:text-cyan-300">La</span>
             <span className="text-gray-900 dark:text-white"> galleria</span>
           </motion.a>
 
@@ -105,7 +108,7 @@ const Navbar = ({ onNavigate }) => {
                 <motion.button
                   key={link.name}
                   onClick={() => onNavigate(link.action)}
-                  className="text-xs lg:text-sm text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium whitespace-nowrap"
+                  className="text-xs lg:text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
@@ -115,7 +118,7 @@ const Navbar = ({ onNavigate }) => {
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="text-xs lg:text-sm text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium whitespace-nowrap"
+                  className="text-xs lg:text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
@@ -129,7 +132,7 @@ const Navbar = ({ onNavigate }) => {
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-28 lg:w-32 px-2 py-1 rounded-lg text-sm bg-white/60 dark:bg-gray-800/60 text-gray-800 dark:text-gray-100 border border-gray-200/60 dark:border-gray-700"
+              className="w-28 lg:w-32 px-2 py-1 rounded-lg text-sm bg-white/70 dark:bg-slate-900/80 text-gray-800 dark:text-gray-100 border border-cyan-200/40 dark:border-cyan-400/20"
               aria-label="Language"
               title="Language"
             >
@@ -137,8 +140,8 @@ const Navbar = ({ onNavigate }) => {
               <option value="rw">{t('lang.kinyarwanda', 'Kinyarwanda')}</option>
             </select>
             <motion.button
-              onClick={() => setTheme(toggleTheme())}
-              className="p-2 rounded-lg bg-white/60 dark:bg-gray-800/60 hover:bg-white dark:hover:bg-gray-800 transition-colors"
+              onClick={handleThemeToggle}
+              className="p-2 rounded-lg bg-white/70 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 transition-colors border border-cyan-200/40 dark:border-cyan-400/20"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label={t('nav.themeToggle', 'Toggle theme')}
@@ -161,7 +164,7 @@ const Navbar = ({ onNavigate }) => {
                   <>
                     <motion.button
                       onClick={() => onNavigate('booking')}
-                      className="text-sm text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium whitespace-nowrap"
+                      className="text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -169,7 +172,7 @@ const Navbar = ({ onNavigate }) => {
                     </motion.button>
                     <motion.button
                       onClick={() => onNavigate('orders')}
-                      className="text-sm text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium whitespace-nowrap"
+                      className="text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -179,7 +182,7 @@ const Navbar = ({ onNavigate }) => {
                 )}
                 <motion.button
                   onClick={handleLogout}
-                  className="bg-red-600 text-white px-4 lg:px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors whitespace-nowrap"
+                  className="bg-rose-600 text-white px-4 lg:px-5 py-2 rounded-lg font-medium hover:bg-rose-700 transition-colors whitespace-nowrap"
                   whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(220, 38, 38, 0.3)' }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -190,7 +193,7 @@ const Navbar = ({ onNavigate }) => {
               <>
                 <motion.button
                   onClick={() => onNavigate('login')}
-                  className="text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium"
+                  className="text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -198,7 +201,7 @@ const Navbar = ({ onNavigate }) => {
                 </motion.button>
                 <motion.button
                   onClick={() => onNavigate('register')}
-                  className="bg-primary text-white px-4 lg:px-5 py-2 rounded-lg font-medium hover:bg-primary-dark transition-colors whitespace-nowrap"
+                  className="brand-button rounded-lg px-4 lg:px-5 py-2 whitespace-nowrap"
                   whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(217, 119, 6, 0.3)' }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -241,7 +244,7 @@ const Navbar = ({ onNavigate }) => {
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-200">{t('nav.themeToggle', 'Toggle theme')}</span>
               <button
-                onClick={() => setTheme(toggleTheme())}
+                onClick={handleThemeToggle}
                 className="px-3 py-2 rounded-lg bg-gray-900 text-gray-100 border border-primary/30 hover:bg-primary/20 transition-colors"
               >
                 {theme === 'dark' ? 'Dark' : 'Light'}

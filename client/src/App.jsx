@@ -19,7 +19,6 @@ import { applyTheme, getTheme } from './services/themeService';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [user, setUser] = useState(null);
   const previousPageRef = useRef('home');
   const [showLoader, setShowLoader] = useState(true);
 
@@ -29,17 +28,7 @@ function App() {
     const currentUser = getCurrentUser();
     const userRole = getUserRole();
     
-    setUser(currentUser);
-
-    // Define protected routes by role
-    const protectedRoutes = {
-      admin: ['admin'],
-      serviceProvider: ['serviceProvider'],
-      customer: ['booking', 'orders']
-    };
-
     const allProtectedRoutes = ['admin', 'serviceProvider', 'booking', 'orders'];
-    const publicRoutes = ['home', 'login', 'register', 'checkin'];
 
     // If not authenticated, redirect protected routes to login
     if (!authenticated || !currentUser) {
@@ -94,7 +83,7 @@ function App() {
   useEffect(() => {
     try {
       applyTheme(getTheme());
-    } catch (e) {
+    } catch {
       // ignore theme errors
     }
   }, []);
@@ -120,8 +109,6 @@ function App() {
         const authenticated = isAuthenticated();
         const currentUser = getCurrentUser();
         
-        setUser(currentUser);
-
         // If logged out, redirect to appropriate page
         if (!authenticated) {
           const protectedRoutes = ['admin', 'serviceProvider', 'booking', 'orders'];
@@ -132,16 +119,17 @@ function App() {
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Also listen for custom logout events
-    window.addEventListener('logout', () => {
+    const handleLogoutEvent = () => {
       checkAuthAndProtectRoutes();
-    });
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    // Also listen for custom logout events
+    window.addEventListener('logout', handleLogoutEvent);
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('logout', handleStorageChange);
+      window.removeEventListener('logout', handleLogoutEvent);
     };
   }, [currentPage]);
 
@@ -238,7 +226,6 @@ function App() {
 }
 
 export default App;
-
 
 
 

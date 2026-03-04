@@ -1,22 +1,10 @@
-import { useState, useEffect } from 'react';
 import ScrollReveal from './ScrollReveal';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 const FeaturedMenu = ({ onNavigate }) => {
-  const [user, setUser] = useState(null);
   const { t } = useLanguage();
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (err) {
-        console.error('Error parsing user data:', err);
-      }
-    }
-  }, []);
   const menuItems = [
     {
       id: 1,
@@ -63,10 +51,11 @@ const FeaturedMenu = ({ onNavigate }) => {
   ];
 
   return (
-    <section id="menu" className="py-20 sm:py-24 lg:py-32 bg-gray-50 dark:bg-gray-950">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="menu" className="py-20 sm:py-24 lg:py-32 bg-gradient-to-b from-transparent to-cyan-50/30 dark:to-cyan-950/20">
+      <div className="brand-container">
         <ScrollReveal>
           <div className="text-center mb-16">
+            <span className="brand-chip mb-4">Chef Selection</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               {t('menu.featured', 'Featured Menu')}
             </h2>
@@ -80,7 +69,7 @@ const FeaturedMenu = ({ onNavigate }) => {
           {menuItems.map((item, index) => (
             <ScrollReveal key={item.id} delay={index * 0.1}>
               <motion.div
-                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300 border border-transparent dark:border-gray-700"
+                className="brand-card rounded-2xl overflow-hidden transition-shadow duration-300"
                 whileHover={{ y: -8, scale: 1.02 }}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -94,7 +83,7 @@ const FeaturedMenu = ({ onNavigate }) => {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.4 }}
                   />
-                  <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full font-semibold text-sm">
+                  <div className="absolute top-4 right-4 bg-slate-900/75 text-cyan-200 border border-cyan-300/40 px-3 py-1 rounded-full font-semibold text-sm backdrop-blur-sm dark:bg-slate-800/80">
                     {item.price}
                   </div>
                 </div>
@@ -134,7 +123,7 @@ const FeaturedMenu = ({ onNavigate }) => {
                         if (onNavigate) onNavigate('login');
                       }
                     }}
-                    className="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                    className="w-full brand-button rounded-lg py-2"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -150,7 +139,7 @@ const FeaturedMenu = ({ onNavigate }) => {
           <div className="text-center mt-12">
             <motion.a
               href="#menu"
-              className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+              className="brand-button rounded-lg"
               whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(217, 119, 6, 0.3)' }}
               whileTap={{ scale: 0.95 }}
             >

@@ -1,2 +1,52 @@
 
 /* App-specific styles - using Tailwind for most styling */
+
+/* Dark mode fallback styling for admin/service provider module content. */
+.dark .admin-module-theme [class*="bg-white"],
+.dark .serviceprovider-theme [class*="bg-white"] {
+  background-color: rgb(17 24 39 / 0.9) !important;
+}
+
+.dark .admin-module-theme [class*="text-gray-900"],
+.dark .admin-module-theme [class*="text-gray-800"],
+.dark .admin-module-theme h1,
+.dark .admin-module-theme h2,
+.dark .admin-module-theme h3,
+.dark .admin-module-theme h4,
+.dark .serviceprovider-theme [class*="text-gray-900"],
+.dark .serviceprovider-theme [class*="text-gray-800"],
+.dark .serviceprovider-theme h1,
+.dark .serviceprovider-theme h2,
+.dark .serviceprovider-theme h3,
+.dark .serviceprovider-theme h4 {
+  color: rgb(243 244 246) !important;
+}
+
+.dark .admin-module-theme [class*="text-gray-700"],
+.dark .admin-module-theme [class*="text-gray-600"],
+.dark .admin-module-theme [class*="text-gray-500"],
+.dark .serviceprovider-theme [class*="text-gray-700"],
+.dark .serviceprovider-theme [class*="text-gray-600"],
+.dark .serviceprovider-theme [class*="text-gray-500"] {
+  color: rgb(209 213 219) !important;
+}
+
+.dark .admin-module-theme [class*="border-gray-200"],
+.dark .admin-module-theme [class*="border-gray-300"],
+.dark .admin-module-theme [class*="divide-gray-200"],
+.dark .serviceprovider-theme [class*="border-gray-200"],
+.dark .serviceprovider-theme [class*="border-gray-300"],
+.dark .serviceprovider-theme [class*="divide-gray-200"] {
+  border-color: rgb(55 65 81) !important;
+}
+
+.dark .admin-module-theme input,
+.dark .admin-module-theme select,
+.dark .admin-module-theme textarea,
+.dark .serviceprovider-theme input,
+.dark .serviceprovider-theme select,
+.dark .serviceprovider-theme textarea {
+  background-color: rgb(17 24 39) !important;
+  color: rgb(243 244 246) !important;
+  border-color: rgb(55 65 81) !important;
+}

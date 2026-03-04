@@ -29,8 +29,18 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children, currentModule = 'dashboard', onModuleChange, onNavigate }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(getTheme());
   const { language, setLanguage, t } = useLanguage();
+
+  useEffect(() => {
+    const handler = () => setTheme(getTheme());
+    window.addEventListener('theme-changed', handler);
+    window.addEventListener('storage', handler);
+    return () => {
+      window.removeEventListener('theme-changed', handler);
+      window.removeEventListener('storage', handler);
+    };
+  }, []);
 
   const navigationItems = [
     { id: 'dashboard', name: t('dashboard.dashboard', 'Dashboard'), icon: HomeIcon },
@@ -54,7 +64,6 @@ export function DashboardLayout({ children, currentModule = 'dashboard', onModul
   };
 
   return (
-    <div className={`${theme === 'dark' ? 'dark' : ''}`}>
       <div className="flex flex-row min-h-screen w-100 bg-gradient-to-br from-slate-50 via-white to-emerald-50 text-gray-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 dark:text-gray-100">
         {/* Mobile sidebar overlay */}
         {sidebarOpen && (
@@ -162,7 +171,6 @@ export function DashboardLayout({ children, currentModule = 'dashboard', onModul
           </main>
         </div>
       </div>
-    </div>
   );
 }
 

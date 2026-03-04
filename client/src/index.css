@@ -1,14 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --brand: 14 116 144;
+    --brand-2: 236 72 153;
+    --brand-ink: 15 23 42;
+    --surface: 248 250 252;
+    --surface-strong: 255 255 255;
+  }
+
+  .dark {
+    --brand: 34 211 238;
+    --brand-2: 244 114 182;
+    --brand-ink: 241 245 249;
+    --surface: 2 6 23;
+    --surface-strong: 15 23 42;
+  }
+
   * {
     @apply antialiased;
   }
 
   body {
-    @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+    font-family: 'Manrope', sans-serif;
+    @apply text-gray-900 dark:text-gray-100;
+    background:
+      radial-gradient(1200px 700px at 0% -10%, rgba(var(--brand), 0.18), transparent 60%),
+      radial-gradient(1200px 800px at 100% 0%, rgba(var(--brand-2), 0.14), transparent 60%),
+      rgb(var(--surface));
   }
 
   html {
@@ -19,9 +42,36 @@
   video {
     @apply max-w-full h-auto;
   }
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -0.015em;
+  }
 }
 
 @layer utilities {
+  .brand-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .brand-card {
+    @apply border border-white/40 dark:border-white/10 shadow-xl shadow-slate-900/5 dark:shadow-black/20 backdrop-blur-sm;
+    background: linear-gradient(155deg, rgba(var(--surface-strong), 0.94), rgba(var(--surface-strong), 0.8));
+  }
+
+  .brand-chip {
+    @apply inline-flex items-center gap-2 border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em];
+    border-color: rgba(var(--brand), 0.35);
+    color: rgb(var(--brand));
+    background: rgba(var(--brand), 0.08);
+  }
+
+  .brand-button {
+    @apply inline-flex items-center justify-center px-6 py-3 font-semibold text-white transition-all duration-300;
+    background: linear-gradient(120deg, rgb(var(--brand)) 0%, rgb(var(--brand-2)) 100%);
+    box-shadow: 0 10px 24px rgba(var(--brand), 0.28);
+  }
+
   .text-balance {
     text-wrap: balance;
   }

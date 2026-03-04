@@ -5,7 +5,7 @@ const THEME_KEY = 'theme';
 export function getTheme(): Theme {
   const saved = localStorage.getItem(THEME_KEY);
   if (saved === 'dark' || saved === 'light') return saved;
-  return 'light';
+  return 'dark';
 }
 
 export function applyTheme(theme: Theme) {

@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 
 const Home = ({ onNavigate }) => {
     return (
-        <div className="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+        <div className="min-h-screen text-gray-900 dark:text-gray-100">
             <Navbar onNavigate={onNavigate} />
             <Hero />
             <Services />

@@ -333,9 +333,9 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
 
   return (
     <DashboardLayout onNavigate={onNavigate}>
-      <div className="space-y-8 px-4 sm:px-6 lg:px-8">
+      <div className="serviceprovider-theme space-y-8 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
-        <div className="rounded-3xl border border-sky-100/70 dark:border-sky-900/40 bg-white/80 dark:bg-gray-900/70 backdrop-blur p-6 shadow-sm">
+        <div className="rounded-none border border-sky-100/70 dark:border-sky-900/40 bg-white/80 dark:bg-gray-900/70 backdrop-blur p-6 shadow-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600 dark:text-sky-300">{t('serviceProvider.title', 'Service Provider')}</p>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-1">{t('serviceProvider.welcome', 'Welcome back, {{name}}', { name: user?.name || '' })}</h1>
           <p className="text-gray-600 dark:text-gray-300 mt-2">{t('serviceProvider.subtitle', 'Your daily actions, messages, and salary history in one place.')}</p>
@@ -345,7 +345,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white/80 dark:bg-gray-900/70 rounded-3xl border border-gray-200/60 dark:border-gray-800 backdrop-blur p-6 shadow-sm"
+          className="bg-white/80 dark:bg-gray-900/70 rounded-none border border-gray-200/60 dark:border-gray-800 backdrop-blur p-6 shadow-sm"
         >
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('serviceProvider.goodDay', 'Good day!')}</h2>
           <p className="text-gray-600 dark:text-gray-300">
@@ -361,11 +361,11 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white/90 dark:bg-gray-900/70 rounded-3xl shadow-sm p-6 transition-shadow hover:shadow-md cursor-pointer border border-gray-200/70 dark:border-gray-800"
+              className="bg-white/90 dark:bg-gray-900/70 rounded-none shadow-sm p-6 transition-shadow hover:shadow-md cursor-pointer border border-gray-200/70 dark:border-gray-800"
               onClick={action.action}
             >
               <div className="flex items-center">
-                <div className={`p-3 rounded-lg ${action.color}`}>
+                <div className={`p-3 rounded-none ${action.color}`}>
                   <action.icon className="h-6 w-6 text-white" />
                 </div>
                 <div className="ml-4">
@@ -378,7 +378,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
         </div>
 
         {/* Salary History */}
-        <div className="bg-white/80 dark:bg-gray-900/70 rounded-2xl border border-gray-200/60 dark:border-gray-800 backdrop-blur shadow-sm p-6">
+        <div className="bg-white/80 dark:bg-gray-900/70 rounded-none border border-gray-200/60 dark:border-gray-800 backdrop-blur shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">{t('serviceProvider.salaryHistory', 'Salary History')}</h3>
@@ -395,7 +395,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
           </div>
 
           {salaryError && (
-            <div className="mb-3 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+            <div className="mb-3 p-3 bg-red-50 border border-red-200 text-red-700 rounded-none">
               {salaryError}
             </div>
           )}
@@ -444,7 +444,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md mx-4"
+                className="bg-white dark:bg-gray-800 rounded-none shadow-xl p-6 w-full max-w-md mx-4"
               >
                 <div className="flex items-center mb-4">
                   <DocumentTextIcon className="h-6 w-6 text-blue-600 mr-3" />
@@ -459,7 +459,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                     <select
                       value={attendanceForm.status}
                       onChange={(e) => setAttendanceForm({ ...attendanceForm, status: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:text-gray-100"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:text-gray-100"
                       required
                     >
                       <option value="present">Present</option>
@@ -476,7 +476,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                       <select
                         value={attendanceForm.absenceReason}
                         onChange={(e) => setAttendanceForm({ ...attendanceForm, absenceReason: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:text-gray-100"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:text-gray-100"
                         required
                       >
                         <option value="">Select reason</option>
@@ -496,7 +496,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                       value={attendanceForm.notes}
                       onChange={(e) => setAttendanceForm({ ...attendanceForm, notes: e.target.value })}
                       placeholder="Any additional notes about your attendance..."
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-gray-900 dark:text-gray-100"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-gray-900 dark:text-gray-100"
                       rows={3}
                     />
                   </div>
@@ -505,14 +505,14 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                     <button
                       type="button"
                       onClick={() => setShowAttendanceForm(false)}
-                      className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+                      className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-none text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-none text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isLoading ? 'Marking Attendance...' : 'Mark Attendance'}
                     </button>
@@ -532,7 +532,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-4xl mx-4 max-h-[80vh] overflow-y-auto"
+                className="bg-white dark:bg-gray-800 rounded-none shadow-xl p-6 w-full max-w-4xl mx-4 max-h-[80vh] overflow-y-auto"
               >
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center">
@@ -557,7 +557,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                     </div>
                   ) : (
                     tasks.map((task) => (
-                      <div key={task._id || task.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                      <div key={task._id || task.id} className="border border-gray-200 dark:border-gray-700 rounded-none p-4">
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
                             <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">{String(task.title || '')}</h4>
@@ -565,13 +565,13 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                               <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">{String(task.description)}</p>
                             )}
                             <div className="flex items-center mt-2 space-x-4">
-                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${task.priority === 'high' ? 'bg-red-100 text-red-800' :
+                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium ${task.priority === 'high' ? 'bg-red-100 text-red-800' :
                                 task.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                                   'bg-gray-100 text-gray-800'
                                 }`}>
                                 {task.priority} priority
                               </span>
-                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${task.status === 'completed' ? 'bg-green-100 text-green-800' :
+                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium ${task.status === 'completed' ? 'bg-green-100 text-green-800' :
                                 task.status === 'in-progress' ? 'bg-blue-100 text-blue-800' :
                                   'bg-gray-100 text-gray-800'
                                 }`}>
@@ -586,7 +586,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                             {task.status !== 'completed' && (
                               <button
                                 onClick={() => updateTaskStatus(task._id || task.id, 'completed')}
-                                className="px-3 py-1 bg-green-600 text-white text-sm rounded-md hover:bg-green-700"
+                                className="px-3 py-1 bg-green-600 text-white text-sm rounded-none hover:bg-green-700"
                               >
                                 {t('serviceProvider.markComplete', 'Mark Complete')}
                               </button>
@@ -594,7 +594,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                             {task.status !== 'in-progress' && task.status !== 'completed' && (
                               <button
                                 onClick={() => updateTaskStatus(task._id || task.id, 'in-progress')}
-                                className="px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+                                className="px-3 py-1 bg-blue-600 text-white text-sm rounded-none hover:bg-blue-700"
                               >
                                 {t('serviceProvider.startTask', 'Start Task')}
                               </button>
@@ -609,7 +609,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                 <div className="mt-6 flex justify-end">
                   <button
                     onClick={() => setShowTasksModal(false)}
-                    className="px-4 py-2 bg-gray-600 text-white rounded-md text-sm font-medium hover:bg-gray-700"
+                    className="px-4 py-2 bg-gray-600 text-white rounded-none text-sm font-medium hover:bg-gray-700"
                   >
                     {t('serviceProvider.close', 'Close')}
                   </button>
@@ -628,7 +628,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-4xl mx-4 max-h-[80vh] overflow-y-auto"
+                className="bg-white dark:bg-gray-800 rounded-none shadow-xl p-6 w-full max-w-4xl mx-4 max-h-[80vh] overflow-y-auto"
               >
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center">
@@ -667,7 +667,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                     messages.map((message) => (
                       <div
                         key={message.id}
-                        className={`border rounded-lg p-4 ${!message.read ? 'bg-blue-50 border-blue-200 dark:bg-blue-900/30 dark:border-blue-800' : 'bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700'}`}
+                        className={`border rounded-none p-4 ${!message.read ? 'bg-blue-50 border-blue-200 dark:bg-blue-900/30 dark:border-blue-800' : 'bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700'}`}
                       >
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
@@ -675,7 +675,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                               {!message.read && <EnvelopeOpenIcon className="h-4 w-4 text-blue-600" />}
                               <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">{message.subject}</h4>
                               {!message.read && (
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-none text-xs font-medium bg-blue-100 text-blue-800">
                                   Unread
                                 </span>
                               )}
@@ -690,14 +690,14 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                             {!message.read && (
                               <button
                                 onClick={() => markMessageAsRead(message.id)}
-                                className="px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+                                className="px-3 py-1 bg-blue-600 text-white text-sm rounded-none hover:bg-blue-700"
                               >
                                 Mark as Read
                               </button>
                             )}
                             <button
                               onClick={() => deleteMessage(message.id)}
-                              className="px-3 py-1 bg-red-600 text-white text-sm rounded-md hover:bg-red-700"
+                              className="px-3 py-1 bg-red-600 text-white text-sm rounded-none hover:bg-red-700"
                             >
                               Delete
                             </button>
@@ -711,7 +711,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                 <div className="mt-6 flex justify-end">
                   <button
                     onClick={() => setShowMessagesModal(false)}
-                    className="px-4 py-2 bg-gray-600 text-white rounded-md text-sm font-medium hover:bg-gray-700"
+                    className="px-4 py-2 bg-gray-600 text-white rounded-none text-sm font-medium hover:bg-gray-700"
                   >
                     Close
                   </button>
@@ -726,3 +726,4 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
 };
 
 export default ServiceProviderPage;
+

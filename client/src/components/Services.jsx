@@ -35,10 +35,11 @@ const Services = () => {
   ];
 
   return (
-    <section id="about" className="py-20 sm:py-24 lg:py-32 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-20 sm:py-24 lg:py-32">
+      <div className="brand-container">
         <ScrollReveal>
           <div className="text-center mb-16">
+            <span className="brand-chip mb-4">What We Offer</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               {t('services.title', 'Our Services')}
             </h2>
@@ -52,10 +53,10 @@ const Services = () => {
           {services.map((service, index) => (
             <ScrollReveal key={service.title} delay={index * 0.1}>
               <motion.div
-                className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:bg-white dark:hover:bg-gray-800/80 transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-primary/20 hover:shadow-xl"
+                className="brand-card rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1"
                 whileHover={{ y: -8 }}
               >
-                <div className="text-primary mb-6">{service.icon}</div>
+                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-600 dark:bg-cyan-400/15 dark:text-cyan-300">{service.icon}</div>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                   {service.title}
                 </h3>

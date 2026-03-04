@@ -5,22 +5,10 @@ import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 
 const RoomsPreview = ({ onNavigate }) => {
-  const [user, setUser] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { t } = useLanguage();
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (err) {
-        console.error('Error parsing user data:', err);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     // Fetch real rooms so selection matches the Rooms tab/admin rooms
@@ -42,7 +30,7 @@ const RoomsPreview = ({ onNavigate }) => {
       }
     };
     fetchRooms();
-  }, []);
+  }, [t]);
 
   const handleBookNow = (room) => {
     // Check if user is logged in and is a customer
@@ -77,10 +65,11 @@ const RoomsPreview = ({ onNavigate }) => {
   };
 
   return (
-    <section id="rooms" className="py-20 sm:py-24 lg:py-32 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="rooms" className="py-20 sm:py-24 lg:py-32">
+      <div className="brand-container">
         <ScrollReveal>
           <div className="text-center mb-16">
+            <span className="brand-chip mb-4">Stay In Style</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               {t('rooms.title', 'Our Rooms')}
             </h2>
@@ -103,7 +92,7 @@ const RoomsPreview = ({ onNavigate }) => {
             {rooms.map((room, index) => (
             <ScrollReveal key={room.id || room._id || room.roomNumber || `room-${index}`} delay={index * 0.15}>
               <motion.div
-                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700"
+                className="brand-card rounded-2xl overflow-hidden transition-shadow duration-300"
                 whileHover={{ y: -8 }}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -117,8 +106,8 @@ const RoomsPreview = ({ onNavigate }) => {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.4 }}
                   />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg">
-                    <span className="text-primary font-bold text-lg">
+                  <div className="absolute top-4 left-4 bg-slate-900/75 border border-cyan-300/40 text-cyan-200 backdrop-blur-sm px-4 py-2 rounded-lg">
+                    <span className="font-bold text-lg">
                       ${Number(room.price || 0).toFixed(0)}/night
                     </span>
                   </div>
@@ -139,7 +128,7 @@ const RoomsPreview = ({ onNavigate }) => {
                   </div>
                   <motion.button
                     onClick={() => handleBookNow(room)}
-                    className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                    className="w-full brand-button rounded-lg py-3"
                     whileHover={{ scale: 1.02, boxShadow: '0 10px 25px rgba(217, 119, 6, 0.3)' }}
                     whileTap={{ scale: 0.98 }}
                   >
