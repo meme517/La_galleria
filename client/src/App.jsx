@@ -1,3 +1,5 @@
+
+
 import { useState, useEffect, useRef } from 'react';
 import Home from './pages/Home';
 import CheckinPage from './pages/CheckinPage';
