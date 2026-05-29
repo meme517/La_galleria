@@ -58,14 +58,14 @@ const EventsPage = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <Navbar onNavigate={onNavigate} />
       
       <div className="container mx-auto px-4 py-16">
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('events.title', 'Past Events')}</h1>
-            <p className="text-lg text-gray-600">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('events.title', 'Past Events')}</h1>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               A showcase of memorable events we've hosted at La galleria
             </p>
           </div>
@@ -75,7 +75,7 @@ const EventsPage = ({ onNavigate }) => {
           {events.map((event, index) => (
             <ScrollReveal key={event.id} delay={index * 0.1}>
               <motion.div
-                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300"
+                className="bg-white dark:bg-gray-800/85 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300"
                 whileHover={{ y: -8, scale: 1.02 }}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -89,8 +89,8 @@ const EventsPage = ({ onNavigate }) => {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.4 }}
                   />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg">
-                    <span className="text-primary font-semibold text-sm">
+                  <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-900/80 border border-gray-200/60 dark:border-gray-700 backdrop-blur-sm px-4 py-2 rounded-lg">
+                    <span className="text-primary dark:text-cyan-300 font-semibold text-sm">
                       {new Date(event.date).toLocaleDateString('en-US', { 
                         month: 'short', 
                         day: 'numeric', 
@@ -100,13 +100,13 @@ const EventsPage = ({ onNavigate }) => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                     {event.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                     {event.description}
                   </p>
-                  <div className="flex items-center text-sm text-gray-500">
+                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-300">
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>

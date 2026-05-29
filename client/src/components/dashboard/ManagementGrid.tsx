@@ -24,7 +24,7 @@ export const ManagementGrid: React.FC<ManagementGridProps> = ({ onModuleClick })
         {
             id: 'attendance',
             title: 'Attendance Tracking',
-            description: 'Monitor staff check-ins and working hours',
+            description: 'Monitor staff attendance and working hours',
             icon: ClockIcon,
             color: 'bg-purple-500',
         },

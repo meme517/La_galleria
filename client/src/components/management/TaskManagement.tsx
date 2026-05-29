@@ -125,7 +125,7 @@ const TaskManagement: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-gray-900/70 rounded-lg shadow border border-gray-200/60 dark:border-gray-800 p-6">
                 <div className="flex items-center justify-center h-64">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                 </div>
@@ -134,11 +134,11 @@ const TaskManagement: React.FC = () => {
     }
 
     return (
-        <div className="bg-white rounded-lg shadow">
-            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+        <div className="bg-white dark:bg-gray-900/70 rounded-lg shadow border border-gray-200/60 dark:border-gray-800">
+            <div className="p-6 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Task Management</h2>
-                    <p className="text-gray-600 mt-1">Create and assign tasks to service providers</p>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Task Management</h2>
+                    <p className="text-gray-600 dark:text-gray-300 mt-1">Create and assign tasks to service providers</p>
                 </div>
                 <button
                     onClick={handleCreateTask}
@@ -151,45 +151,45 @@ const TaskManagement: React.FC = () => {
 
             <div className="p-6">
                 {error && (
-                    <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+                    <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-200">
                         {error}
                     </div>
                 )}
 
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead className="bg-gray-50 dark:bg-gray-800/90">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned To</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Task</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Assigned To</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Priority</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Status</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Due Date</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-white dark:bg-gray-900/70 divide-y divide-gray-200 dark:divide-gray-700">
                             {tasks.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-4 text-center text-gray-500">
+                                    <td colSpan={6} className="px-6 py-4 text-center text-gray-500 dark:text-gray-300">
                                         No tasks found. Create your first task!
                                     </td>
                                 </tr>
                             ) : (
                                 tasks.map((task) => (
-                                    <tr key={task._id || task.id} className="hover:bg-gray-50">
+                                    <tr key={task._id || task.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/80">
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">{task.title}</div>
+                                            <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{task.title}</div>
                                             {task.description && (
-                                                <div className="text-sm text-gray-500 truncate max-w-xs">{task.description}</div>
+                                                <div className="text-sm text-gray-500 dark:text-gray-300 truncate max-w-xs">{task.description}</div>
                                             )}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-900">
+                                            <div className="text-sm text-gray-900 dark:text-gray-100">
                                                 {task.assignedTo?.name || 'Unknown'}
                                             </div>
                                             {task.assignedTo?.department && (
-                                                <div className="text-sm text-gray-500">{task.assignedTo.department}</div>
+                                                <div className="text-sm text-gray-500 dark:text-gray-300">{task.assignedTo.department}</div>
                                             )}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -202,20 +202,20 @@ const TaskManagement: React.FC = () => {
                                                 {task.status}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                                             {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}
                                             {task.dueTime && ` ${task.dueTime}`}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                                             <button
                                                 onClick={() => handleEditTask(task)}
-                                                className="text-blue-600 hover:text-blue-900"
+                                                className="text-blue-600 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-200"
                                             >
                                                 <PencilIcon className="h-5 w-5" />
                                             </button>
                                             <button
                                                 onClick={() => handleDeleteTask(task._id || task.id)}
-                                                className="text-red-600 hover:text-red-900"
+                                                className="text-red-600 dark:text-red-300 hover:text-red-900 dark:hover:text-red-200"
                                             >
                                                 <TrashIcon className="h-5 w-5" />
                                             </button>
@@ -235,11 +235,11 @@ const TaskManagement: React.FC = () => {
             >
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Assigned To *</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Assigned To *</label>
                         <select
                             value={formData.assignedTo}
                             onChange={(e) => setFormData({ ...formData, assignedTo: e.target.value })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         >
                             <option value="">Select service provider</option>
@@ -252,33 +252,33 @@ const TaskManagement: React.FC = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title *</label>
                         <input
                             type="text"
                             value={formData.title}
                             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
                         <textarea
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows={3}
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Priority *</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Priority *</label>
                             <select
                                 value={formData.priority}
                                 onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             >
                                 <option value="low">Low</option>
@@ -288,33 +288,33 @@ const TaskManagement: React.FC = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Due Date *</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Due Date *</label>
                             <input
                                 type="date"
                                 value={formData.dueDate}
                                 onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Due Time</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Due Time</label>
                         <input
                             type="time"
                             value={formData.dueTime}
                             onChange={(e) => setFormData({ ...formData, dueTime: e.target.value })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</label>
                         <textarea
                             value={formData.notes}
                             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows={2}
                         />
                     </div>
@@ -323,7 +323,7 @@ const TaskManagement: React.FC = () => {
                         <button
                             type="button"
                             onClick={() => setIsModalOpen(false)}
-                            className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                            className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/80"
                         >
                             Cancel
                         </button>

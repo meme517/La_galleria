@@ -7,6 +7,21 @@
   background-color: rgb(17 24 39 / 0.9) !important;
 }
 
+.dark .admin-module-theme [class*="bg-gray-50"],
+.dark .serviceprovider-theme [class*="bg-gray-50"] {
+  background-color: rgb(30 41 59 / 0.9) !important;
+}
+
+.dark .admin-module-theme [class*="bg-gray-100"],
+.dark .serviceprovider-theme [class*="bg-gray-100"] {
+  background-color: rgb(51 65 85 / 0.88) !important;
+}
+
+.dark .admin-module-theme [class*="bg-gray-200"],
+.dark .serviceprovider-theme [class*="bg-gray-200"] {
+  background-color: rgb(71 85 105 / 0.85) !important;
+}
+
 .dark .admin-module-theme [class*="text-gray-900"],
 .dark .admin-module-theme [class*="text-gray-800"],
 .dark .admin-module-theme h1,
@@ -25,10 +40,12 @@
 .dark .admin-module-theme [class*="text-gray-700"],
 .dark .admin-module-theme [class*="text-gray-600"],
 .dark .admin-module-theme [class*="text-gray-500"],
+.dark .admin-module-theme [class*="text-gray-400"],
 .dark .serviceprovider-theme [class*="text-gray-700"],
 .dark .serviceprovider-theme [class*="text-gray-600"],
-.dark .serviceprovider-theme [class*="text-gray-500"] {
-  color: rgb(209 213 219) !important;
+.dark .serviceprovider-theme [class*="text-gray-500"],
+.dark .serviceprovider-theme [class*="text-gray-400"] {
+  color: rgb(226 232 240) !important;
 }
 
 .dark .admin-module-theme [class*="border-gray-200"],
@@ -49,4 +66,11 @@
   background-color: rgb(17 24 39) !important;
   color: rgb(243 244 246) !important;
   border-color: rgb(55 65 81) !important;
+}
+
+.dark .admin-module-theme input::placeholder,
+.dark .admin-module-theme textarea::placeholder,
+.dark .serviceprovider-theme input::placeholder,
+.dark .serviceprovider-theme textarea::placeholder {
+  color: rgb(148 163 184) !important;
 }

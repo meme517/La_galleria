@@ -72,21 +72,21 @@ export function DataTable<T extends Record<string, any>>({
   if (data.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">{emptyMessage}</p>
+        <p className="text-gray-500 dark:text-gray-300 text-lg">{emptyMessage}</p>
       </div>
     );
   }
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead className="bg-gray-50 dark:bg-gray-800/90">
           <tr>
             {columns.map((column) => (
               <th
                 key={column.key as string}
-                className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${
-                  column.sortable ? 'cursor-pointer hover:bg-gray-100' : ''
+                className={`px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider ${
+                  column.sortable ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700/70' : ''
                 }`}
                 onClick={() => column.sortable && handleSort(column.key as string)}
               >
@@ -106,12 +106,12 @@ export function DataTable<T extends Record<string, any>>({
             ))}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white dark:bg-gray-900/70 divide-y divide-gray-200 dark:divide-gray-700">
           {sortedData.map((item, index) => (
             <tr
               key={index}
               className={`${
-                onRowClick ? 'cursor-pointer hover:bg-gray-50' : ''
+                onRowClick ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/80' : ''
               } transition-colors duration-200`}
               onClick={() => onRowClick?.(item)}
             >

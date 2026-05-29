@@ -30,14 +30,14 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
 
                 {/* Modal panel */}
                 <div
-                    className={`inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle ${sizeClasses[size]} w-full`}
+                    className={`inline-block align-bottom bg-white dark:bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle border border-gray-200 dark:border-gray-700 ${sizeClasses[size]} w-full`}
                 >
                     {/* Header */}
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-                        <h3 className="text-lg font-medium text-gray-900">{title}</h3>
+                    <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">{title}</h3>
                         <button
                             onClick={onClose}
-                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                            className="text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition-colors"
                         >
                             <XMarkIcon className="h-6 w-6" />
                         </button>

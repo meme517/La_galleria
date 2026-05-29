@@ -22,10 +22,21 @@ const io = socketIo(server, {
 module.exports = { app, io };
 
 // Basic middleware
-app.use(cors({
-	origin: allowedOrigins,
-	credentials: true
-}));
+const corsOptions = {
+	origin: (origin, callback) => {
+		// Allow requests with no origin (like mobile apps, curl, etc.)
+		if (!origin) return callback(null, true);
+		if (allowedOrigins.includes(origin)) return callback(null, true);
+		return callback(new Error(`CORS blocked origin: ${origin}`));
+	},
+	credentials: true,
+	exposedHeaders: ['Authorization'],
+};
+
+app.use(cors(corsOptions));
+// Explicitly handle preflight requests
+app.options('*', cors(corsOptions));
+
 app.use(express.json());
 
 function deriveRestUriFrom(uri) {

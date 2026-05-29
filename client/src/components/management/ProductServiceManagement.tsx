@@ -66,7 +66,7 @@ const ProductServiceManagement: React.FC = () => {
             e.stopPropagation();
             handleEdit(item);
           }}
-          className="text-blue-600 hover:text-blue-900"
+          className="text-blue-600 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-200"
         >
           Edit
         </button>
@@ -75,7 +75,7 @@ const ProductServiceManagement: React.FC = () => {
             e.stopPropagation();
             handleDelete(item.id);
           }}
-          className="text-red-600 hover:text-red-900"
+          className="text-red-600 dark:text-red-300 hover:text-red-900 dark:hover:text-red-200"
         >
           Delete
         </button>
@@ -103,7 +103,7 @@ const ProductServiceManagement: React.FC = () => {
             e.stopPropagation();
             handleEdit(item);
           }}
-          className="text-blue-600 hover:text-blue-900"
+          className="text-blue-600 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-200"
         >
           Edit
         </button>
@@ -112,7 +112,7 @@ const ProductServiceManagement: React.FC = () => {
             e.stopPropagation();
             handleDelete(item.id);
           }}
-          className="text-red-600 hover:text-red-900"
+          className="text-red-600 dark:text-red-300 hover:text-red-900 dark:hover:text-red-200"
         >
           Delete
         </button>
@@ -193,7 +193,7 @@ const ProductServiceManagement: React.FC = () => {
       className="space-y-6"
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">Product & Service Management</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Product & Service Management</h2>
         <button
           onClick={handleAdd}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
@@ -203,15 +203,15 @@ const ProductServiceManagement: React.FC = () => {
       </div>
 
       <div className="w-full">
-        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6">
+        <div className="flex space-x-1 bg-gray-100 dark:bg-gray-800/90 p-1 rounded-lg mb-6 border border-gray-200/70 dark:border-gray-700">
           {tabs.map((tab, index) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}
               className={`w-full py-2.5 text-sm font-medium leading-5 rounded-md transition-colors ${
                 activeTab === index
-                  ? 'bg-white text-blue-700 shadow'
-                  : 'text-gray-600 hover:bg-gray-200 hover:text-gray-900'
+                  ? 'bg-white dark:bg-gray-700 text-blue-700 dark:text-blue-200 shadow'
+                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
               }`}
             >
               {tab.name}
@@ -242,7 +242,7 @@ const ProductServiceManagement: React.FC = () => {
                 type="text"
                 value={menuFormData.name}
                 onChange={(e) => setMenuFormData({ ...menuFormData, name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter menu item name"
               />
             </div>
@@ -251,7 +251,7 @@ const ProductServiceManagement: React.FC = () => {
               <textarea
                 value={menuFormData.description}
                 onChange={(e) => setMenuFormData({ ...menuFormData, description: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 rows={3}
                 placeholder="Enter description"
               />
@@ -264,7 +264,7 @@ const ProductServiceManagement: React.FC = () => {
                   step="0.01"
                   value={menuFormData.price}
                   onChange={(e) => setMenuFormData({ ...menuFormData, price: parseFloat(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="0.00"
                 />
               </div>
@@ -274,7 +274,7 @@ const ProductServiceManagement: React.FC = () => {
                   type="text"
                   value={menuFormData.category}
                   onChange={(e) => setMenuFormData({ ...menuFormData, category: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g., Main Course"
                 />
               </div>
@@ -292,7 +292,7 @@ const ProductServiceManagement: React.FC = () => {
             <div className="flex justify-end space-x-3">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2 text-gray-600 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/80"
               >
                 Cancel
               </button>
@@ -313,7 +313,7 @@ const ProductServiceManagement: React.FC = () => {
                   type="text"
                   value={roomFormData.number}
                   onChange={(e) => setRoomFormData({ ...roomFormData, number: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g., 101"
                 />
               </div>
@@ -322,7 +322,7 @@ const ProductServiceManagement: React.FC = () => {
                 <select
                   value={roomFormData.type}
                   onChange={(e) => setRoomFormData({ ...roomFormData, type: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select type</option>
                   <option value="Standard">Standard</option>
@@ -337,7 +337,7 @@ const ProductServiceManagement: React.FC = () => {
                 <select
                   value={roomFormData.status}
                   onChange={(e) => setRoomFormData({ ...roomFormData, status: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="available">Available</option>
                   <option value="occupied">Occupied</option>
@@ -351,7 +351,7 @@ const ProductServiceManagement: React.FC = () => {
                   step="0.01"
                   value={roomFormData.price}
                   onChange={(e) => setRoomFormData({ ...roomFormData, price: parseFloat(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="0.00"
                 />
               </div>
@@ -359,7 +359,7 @@ const ProductServiceManagement: React.FC = () => {
             <div className="flex justify-end space-x-3">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2 text-gray-600 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/80"
               >
                 Cancel
               </button>

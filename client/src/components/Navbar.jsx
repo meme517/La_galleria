@@ -10,6 +10,10 @@ const Navbar = ({ onNavigate }) => {
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState(() => getTheme());
   const { language, setLanguage, t } = useLanguage();
+  const isKinyarwanda = language === 'rw';
+  const desktopNavTextClass = isKinyarwanda ? 'text-xs lg:text-sm' : 'text-sm lg:text-base';
+  const desktopWelcomeVisibility = isKinyarwanda ? 'hidden 2xl:block' : 'hidden xl:block';
+  const customerQuickLinkVisibility = isKinyarwanda ? 'hidden 2xl:inline-flex' : 'hidden xl:inline-flex';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,16 +72,30 @@ const Navbar = ({ onNavigate }) => {
     setIsMobileMenuOpen(false);
   };
 
+  const navigateToSection = (sectionId) => {
+    setIsMobileMenuOpen(false);
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    sessionStorage.setItem('pendingSection', sectionId);
+    if (onNavigate) {
+      onNavigate('home');
+    }
+  };
+
   const navLinks = [
-    { name: t('nav.home', 'Home'), href: '#home' },
-    { name: t('nav.menu', 'Menu'), href: '#menu' },
-    { name: t('nav.rooms', 'Rooms'), href: '#rooms' },
-    { name: t('nav.about', 'About'), href: '#about' },
+    { name: t('nav.home', 'Home'), section: 'home' },
+    { name: t('nav.menu', 'Menu'), section: 'menu' },
+    { name: t('nav.rooms', 'Rooms'), section: 'rooms' },
+    { name: t('nav.about', 'About'), section: 'about' },
     { name: t('nav.contact', 'Contact'), action: 'contact' },
     { name: t('nav.barMenu', 'Bar Menu'), action: 'bar-menu' },
     { name: t('nav.events', 'Events'), action: 'events' },
     { name: t('nav.booking', 'Booking'), action: 'booking' },
-    { name: t('nav.checkin', 'Check-in'), action: 'checkin' },
   ];
 
   return (
@@ -91,44 +109,57 @@ const Navbar = ({ onNavigate }) => {
         }`}
     >
       <div className="brand-container max-w-[1700px] overflow-x-hidden md:overflow-x-auto no-scrollbar">
-        <div className="flex items-center gap-3 lg:gap-4 flex-nowrap min-w-max">
-          <motion.a
-            href="#home"
+        <div className="flex w-full items-center gap-3 lg:gap-4 flex-nowrap">
+          <motion.button
+            type="button"
+            onClick={() => navigateToSection('home')}
             className="text-2xl font-bold text-gray-900 dark:text-white shrink-0"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <span className="text-cyan-600 dark:text-cyan-300">La</span>
             <span className="text-gray-900 dark:text-white"> galleria</span>
-          </motion.a>
+          </motion.button>
 
-          <div className="hidden md:flex items-center gap-3 lg:gap-4 whitespace-nowrap shrink-0 px-1 md:px-2 py-1">
-            {navLinks.map((link) => (
-              link.action ? (
-                <motion.button
-                  key={link.name}
-                  onClick={() => onNavigate(link.action)}
-                  className="text-xs lg:text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0 }}
-                >
-                  {link.name}
-                </motion.button>
-              ) : (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  className="text-xs lg:text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0 }}
-                >
-                  {link.name}
-                </motion.a>
-              )
-            ))}
+          <div className="hidden md:flex flex-1 min-w-0 px-1 md:px-2 py-1 overflow-x-auto no-scrollbar">
+            <div className={`flex items-center whitespace-nowrap min-w-max ${isKinyarwanda ? 'gap-3 lg:gap-4' : 'w-full justify-evenly gap-2 lg:gap-3'}`}>
+              {navLinks.map((link) => (
+                link.action ? (
+                  <motion.button
+                    key={link.name}
+                    onClick={() => onNavigate(link.action)}
+                    className={`${desktopNavTextClass} text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap text-center`}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0 }}
+                  >
+                    {link.name}
+                  </motion.button>
+                ) : link.section ? (
+                  <motion.button
+                    key={link.name}
+                    onClick={() => navigateToSection(link.section)}
+                    className={`${desktopNavTextClass} text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap text-center`}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0 }}
+                  >
+                    {link.name}
+                  </motion.button>
+                ) : (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    className={`${desktopNavTextClass} text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap text-center`}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0 }}
+                  >
+                    {link.name}
+                  </motion.a>
+                )
+              ))}
+            </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-2 lg:gap-3 shrink-0 whitespace-nowrap">
+          <div className="hidden md:flex items-center gap-1.5 lg:gap-2 shrink-0 whitespace-nowrap">
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
@@ -159,12 +190,12 @@ const Navbar = ({ onNavigate }) => {
             </motion.button>
             {user ? (
               <>
-                <span className="text-sm text-gray-700 dark:text-gray-200 font-medium whitespace-nowrap max-w-[220px] truncate">{t('nav.welcome', 'Welcome, {{name}}', { name: user.name })}</span>
+                <span className={`${desktopWelcomeVisibility} text-sm text-gray-700 dark:text-gray-200 font-medium whitespace-nowrap max-w-[180px] truncate`}>{t('nav.welcome', 'Welcome, {{name}}', { name: user.name })}</span>
                 {user.role === 'customer' && (
                   <>
                     <motion.button
                       onClick={() => onNavigate('booking')}
-                      className="text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap"
+                      className={`${customerQuickLinkVisibility} text-xs lg:text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -172,7 +203,7 @@ const Navbar = ({ onNavigate }) => {
                     </motion.button>
                     <motion.button
                       onClick={() => onNavigate('orders')}
-                      className="text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap"
+                      className={`${customerQuickLinkVisibility} text-xs lg:text-sm text-gray-700 dark:text-gray-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors font-medium whitespace-nowrap`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -269,6 +300,14 @@ const Navbar = ({ onNavigate }) => {
                     onNavigate(link.action);
                     setIsMobileMenuOpen(false);
                   }}
+                  className="block w-full rounded-lg px-2 py-1.5 text-gray-100 hover:text-primary hover:bg-white/5 transition-colors font-medium text-left"
+                >
+                  {link.name}
+                </button>
+              ) : link.section ? (
+                <button
+                  key={link.name}
+                  onClick={() => navigateToSection(link.section)}
                   className="block w-full rounded-lg px-2 py-1.5 text-gray-100 hover:text-primary hover:bg-white/5 transition-colors font-medium text-left"
                 >
                   {link.name}

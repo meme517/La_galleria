@@ -24,7 +24,7 @@ const LoginPage = ({ onNavigate }) => {
     {
       id: 'serviceProvider',
       name: t('roles.serviceProvider', 'Service Provider'),
-      description: t('roles.serviceProviderDesc', 'Staff member for check-in, orders, and service'),
+      description: t('roles.serviceProviderDesc', 'Staff member for attendance, orders, and service'),
       icon: '👨‍💼'
     },
     {

@@ -163,15 +163,15 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-2 text-gray-800">Make a Booking</h2>
-      <p className="text-sm text-gray-500 mb-4">
+    <div className="bg-white dark:bg-gray-900/80 border border-gray-200 dark:border-gray-800 p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-100">Make a Booking</h2>
+      <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">
         Choose your room and set your location (e.g. lobby, room number).
       </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Name</label>
             <input
               type="text"
               name="name"
@@ -179,13 +179,13 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
               onChange={handleChange}
               required
               readOnly={!!user?.name}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-50"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-400"
               placeholder="Enter your name"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Email</label>
             <input
               type="email"
               name="email"
@@ -193,7 +193,7 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
               onChange={handleChange}
               required
               readOnly={!!user?.email}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-50"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-400"
               placeholder="Enter your email"
             />
           </div>
@@ -201,19 +201,19 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Phone</label>
             <input
               type="tel"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-400"
               placeholder="Enter your phone number"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
               Location (optional)
             </label>
             <input
@@ -221,7 +221,7 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
               name="location"
               value={formData.location}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-400"
               placeholder="Room number or area (e.g. Poolside, Lobby)"
             />
           </div>
@@ -229,7 +229,7 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Check-in Date</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Check-in Date</label>
             <input
               type="date"
               name="checkInDate"
@@ -237,12 +237,12 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
               onChange={handleChange}
               required
               min={new Date().toISOString().split('T')[0]}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Check-out Date</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Check-out Date</label>
             <input
               type="date"
               name="checkOutDate"
@@ -250,20 +250,20 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
               onChange={handleChange}
               required
               min={formData.checkInDate || new Date().toISOString().split('T')[0]}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Number of Guests</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Number of Guests</label>
             <select
               name="numberOfGuests"
               value={formData.numberOfGuests}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             >
               {[...Array(10)].map((_, i) => (
                 <option key={i + 1} value={i + 1}>{i + 1} Guest{i !== 0 ? 's' : ''}</option>
@@ -272,13 +272,13 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Room Type</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Room Type</label>
             <select
               name="roomId"
               value={formData.roomId}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             >
               <option value="">Select a room</option>
               {rooms.filter(room => room.available !== false).map(room => (
@@ -291,21 +291,21 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Special Requests (Optional)</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Special Requests (Optional)</label>
           <textarea
             name="specialRequests"
             value={formData.specialRequests}
             onChange={handleChange}
             rows="3"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-400"
             placeholder="Any special requests or notes"
           />
         </div>
 
         {formData.roomId && formData.checkInDate && formData.checkOutDate && (
-          <div className="bg-gray-50 p-4 rounded-md">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Booking Summary</h3>
-            <div className="space-y-1 text-sm text-gray-600">
+          <div className="bg-gray-50 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 p-4 rounded-md">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Booking Summary</h3>
+            <div className="space-y-1 text-sm text-gray-600 dark:text-gray-300">
               <p>
                 Room:{' '}
                 {rooms.find(r => r._id === formData.roomId)?.number || rooms.find(r => r._id === formData.roomId)?.roomNumber} -{' '}
@@ -313,7 +313,7 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
               </p>
               <p>Nights: {calculateNights()}</p>
               <p>Room Cost: ${rooms.find(r => r._id === formData.roomId)?.price * calculateNights()}</p>
-              <p className="font-medium text-gray-900">Total: ${calculateTotalAmount().toFixed(2)}</p>
+              <p className="font-medium text-gray-900 dark:text-gray-100">Total: ${calculateTotalAmount().toFixed(2)}</p>
             </div>
           </div>
         )}
@@ -328,8 +328,8 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
           </button>
         </div>
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        {success && <p className="text-green-500 text-sm">{success}</p>}
+        {error && <p className="text-red-500 dark:text-red-300 text-sm">{error}</p>}
+        {success && <p className="text-green-500 dark:text-green-300 text-sm">{success}</p>}
       </form>
 
 

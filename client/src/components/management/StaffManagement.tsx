@@ -20,14 +20,14 @@ export function StaffManagement() {
       sortable: true,
       render: (value: string, item: Staff) => (
         <div className="flex items-center">
-          <div className="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center">
-            <span className="text-sm font-medium text-gray-700">
+          <div className="h-8 w-8 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-100">
               {value.split(' ').map(n => n[0]).join('')}
             </span>
           </div>
           <div className="ml-3">
-            <div className="text-sm font-medium text-gray-900">{value}</div>
-            <div className="text-sm text-gray-500">{item.email}</div>
+            <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{value}</div>
+            <div className="text-sm text-gray-500 dark:text-gray-300">{item.email}</div>
           </div>
         </div>
       ),
@@ -49,27 +49,27 @@ export function StaffManagement() {
       header: 'Department',
       sortable: true,
       render: (value: string) => (
-        <span className="text-sm text-gray-900">{value || 'N/A'}</span>
+        <span className="text-sm text-gray-900 dark:text-gray-100">{value || 'N/A'}</span>
       ),
     },
     {
       key: 'zones',
       header: 'Zones/Areas',
       render: (value: string[]) => (
-        <div className="text-sm text-gray-600">
+        <div className="text-sm text-gray-600 dark:text-gray-300">
           {value && value.length > 0 ? (
             <div className="flex flex-wrap gap-1">
               {value.slice(0, 2).map((zone, index) => (
-                <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-800">
+                <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100">
                   {zone}
                 </span>
               ))}
               {value.length > 2 && (
-                <span className="text-xs text-gray-500">+{value.length - 2} more</span>
+                <span className="text-xs text-gray-500 dark:text-gray-300">+{value.length - 2} more</span>
               )}
             </div>
           ) : (
-            <span className="text-gray-400">None</span>
+            <span className="text-gray-400 dark:text-gray-300">None</span>
           )}
         </div>
       ),
@@ -87,7 +87,7 @@ export function StaffManagement() {
           flexible: 'Flexible'
         };
         return (
-          <span className="text-sm text-gray-900">
+          <span className="text-sm text-gray-900 dark:text-gray-100">
             {value ? shiftHours[value as keyof typeof shiftHours] || value : ''}
           </span>
         );
@@ -100,12 +100,12 @@ export function StaffManagement() {
         <div className="text-sm">
           {value ? (
             <div className="flex items-center space-x-2">
-              <code className="bg-gray-100 px-2 py-1 rounded text-xs font-mono text-gray-800">
+              <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs font-mono text-gray-800 dark:text-gray-100">
                 {value}
               </code>
               <button
                 onClick={() => navigator.clipboard.writeText(value)}
-                className="text-blue-600 hover:text-blue-800 text-xs"
+                className="text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200 text-xs"
                 title="Copy password"
               >
                 📋
@@ -136,13 +136,13 @@ export function StaffManagement() {
         <div className="flex space-x-2">
           <button
             onClick={() => handleEdit(item)}
-            className="text-blue-600 hover:text-blue-900 p-1"
+            className="text-blue-600 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-200 p-1"
           >
             <PencilIcon className="h-4 w-4" />
           </button>
           <button
             onClick={() => handleDelete(item)}
-            className="text-red-600 hover:text-red-900 p-1"
+            className="text-red-600 dark:text-red-300 hover:text-red-900 dark:hover:text-red-200 p-1"
           >
             <TrashIcon className="h-4 w-4" />
           </button>
@@ -203,7 +203,7 @@ export function StaffManagement() {
       className="space-y-6"
     >
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-900">Staff Management</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Staff Management</h1>
         <button
           onClick={handleAdd}
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
@@ -213,7 +213,7 @@ export function StaffManagement() {
         </button>
       </div>
 
-      <div className="bg-white shadow rounded-lg">
+      <div className="bg-white dark:bg-gray-900/70 shadow rounded-lg border border-gray-200/60 dark:border-gray-800">
         <DataTable
           data={staff}
           columns={columns}

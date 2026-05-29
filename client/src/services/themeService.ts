@@ -2,18 +2,27 @@ type Theme = 'light' | 'dark';
 
 const THEME_KEY = 'theme';
 
+function getSystemTheme(): Theme {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
 export function getTheme(): Theme {
   const saved = localStorage.getItem(THEME_KEY);
   if (saved === 'dark' || saved === 'light') return saved;
-  return 'dark';
+  return getSystemTheme();
 }
 
 export function applyTheme(theme: Theme) {
   const root = document.documentElement;
   if (theme === 'dark') root.classList.add('dark');
   else root.classList.remove('dark');
+  root.style.colorScheme = theme;
   localStorage.setItem(THEME_KEY, theme);
   window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme } }));
+}
+
+export function initializeTheme() {
+  applyTheme(getTheme());
 }
 
 export function toggleTheme(): Theme {

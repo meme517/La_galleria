@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Home from './pages/Home';
-import CheckinPage from './pages/CheckinPage';
 import BookingPage from './pages/BookingPage';
 import OrdersPage from './pages/OrdersPage';
 import ContactPage from './pages/ContactPage';
@@ -15,7 +14,6 @@ import ServiceProviderPage from './pages/ServiceProviderPage.tsx';
 import { getCurrentUser, isAuthenticated, getUserRole } from './services/authService';
 import './App.css';
 import { Loader } from './components/Loader';
-import { applyTheme, getTheme } from './services/themeService';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -78,15 +76,6 @@ function App() {
     if (showLoader) return;
     checkAuthAndProtectRoutes();
   }, [currentPage, showLoader]);
-
-  // Apply persisted theme on startup
-  useEffect(() => {
-    try {
-      applyTheme(getTheme());
-    } catch {
-      // ignore theme errors
-    }
-  }, []);
 
   // Initial branded loader sequence
   useEffect(() => {
@@ -168,7 +157,7 @@ function App() {
     const userRole = getUserRole();
 
     // Public routes
-    const publicRoutes = ['home', 'login', 'register', 'checkin'];
+    const publicRoutes = ['home', 'login', 'register'];
 
     if (publicRoutes.includes(page)) {
       previousPageRef.current = currentPage;
@@ -211,7 +200,6 @@ function App() {
     <>
       {showLoader && <Loader />}
       {currentPage === 'home' && <Home onNavigate={handleNavigate} />}
-      {currentPage === 'checkin' && <CheckinPage onNavigate={handleNavigate} />}
       {currentPage === 'booking' && <BookingPage onNavigate={handleNavigate} />}
       {currentPage === 'orders' && <OrdersPage onNavigate={handleNavigate} />}
       {currentPage === 'contact' && <ContactPage onNavigate={handleNavigate} />}
@@ -226,7 +214,5 @@ function App() {
 }
 
 export default App;
-
-
 
 

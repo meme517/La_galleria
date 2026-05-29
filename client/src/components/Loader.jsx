@@ -36,7 +36,7 @@ export const Loader = () => {
           className="mb-8"
         >
           <span className="inline-flex items-center justify-center rounded-full bg-white/10 backdrop-blur px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
-            Boutique Hotel Experience
+            Resto Bar Hotel Experience
           </span>
         </motion.div>
 

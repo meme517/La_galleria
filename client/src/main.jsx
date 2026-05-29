@@ -6,6 +6,9 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import { LanguageProvider } from './context/LanguageContext'
+import { initializeTheme } from './services/themeService'
+
+initializeTheme()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

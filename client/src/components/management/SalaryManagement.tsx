@@ -87,43 +87,43 @@ const SalaryManagement: React.FC = () => {
   };
 
   return (
-    <div className="bg-white/80 rounded-2xl border border-gray-200/60 shadow-sm backdrop-blur">
-      <div className="p-6 border-b border-gray-200/60">
-        <h2 className="text-2xl font-bold text-gray-900">Salary Management</h2>
-        <p className="text-gray-600 mt-1">Set monthly salaries and record payments</p>
+    <div className="bg-white/80 dark:bg-gray-900/70 rounded-2xl border border-gray-200/60 dark:border-gray-800 shadow-sm backdrop-blur">
+      <div className="p-6 border-b border-gray-200/60 dark:border-gray-800">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Salary Management</h2>
+        <p className="text-gray-600 dark:text-gray-300 mt-1">Set monthly salaries and record payments</p>
       </div>
 
       <div className="p-6">
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+          <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-200 rounded-lg">
             {error}
           </div>
         )}
 
         {loading ? (
-          <div className="text-center py-8 text-gray-500">Loading salary data...</div>
+          <div className="text-center py-8 text-gray-500 dark:text-gray-300">Loading salary data...</div>
         ) : rows.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">No service providers found.</div>
+          <div className="text-center py-8 text-gray-500 dark:text-gray-300">No service providers found.</div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-800/90">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Staff</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monthly Salary</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Paid</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Staff</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Department</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Monthly Salary</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Last Paid</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-gray-900/70 divide-y divide-gray-200 dark:divide-gray-700">
                 {rows.map((row) => (
-                  <tr key={row.id}>
+                  <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/80">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{row.name}</div>
-                      <div className="text-sm text-gray-500">{row.email}</div>
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{row.name}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-300">{row.email}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                       {row.department || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -133,7 +133,7 @@ const SalaryManagement: React.FC = () => {
                           min="0"
                           value={editingSalary[row.id] ?? (row.salary ?? 0)}
                           onChange={(e) => setEditingSalary((prev) => ({ ...prev, [row.id]: e.target.value }))}
-                          className="w-28 px-2 py-1 border border-gray-300 rounded-md text-sm"
+                          className="w-28 px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md text-sm"
                         />
                         <button
                           onClick={() => handleSalarySave(row.id)}
@@ -143,14 +143,14 @@ const SalaryManagement: React.FC = () => {
                         </button>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                       {row.lastPayment ? (
                         <div>
                           <div>${row.lastPayment.amount.toFixed(2)}</div>
-                          <div className="text-xs text-gray-500">{new Date(row.lastPayment.paidAt).toLocaleDateString()}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-300">{new Date(row.lastPayment.paidAt).toLocaleDateString()}</div>
                         </div>
                       ) : (
-                        <span className="text-gray-500">Not paid yet</span>
+                        <span className="text-gray-500 dark:text-gray-300">Not paid yet</span>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -171,36 +171,36 @@ const SalaryManagement: React.FC = () => {
 
       {paymentModal.open && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl p-6 w-full max-w-md mx-4 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
               Record Payment - {paymentModal.name}
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Amount</label>
                 <input
                   type="number"
                   min="0"
                   value={paymentModal.amount || ''}
                   onChange={(e) => setPaymentModal((prev) => ({ ...prev, amount: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Paid Date</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Paid Date</label>
                 <input
                   type="date"
                   value={paymentModal.paidAt || ''}
                   onChange={(e) => setPaymentModal((prev) => ({ ...prev, paidAt: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notes (optional)</label>
                 <textarea
                   value={paymentModal.notes || ''}
                   onChange={(e) => setPaymentModal((prev) => ({ ...prev, notes: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md"
                   rows={3}
                 />
               </div>
@@ -208,7 +208,7 @@ const SalaryManagement: React.FC = () => {
             <div className="mt-6 flex justify-end space-x-2">
               <button
                 onClick={closePaymentModal}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
+                className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 rounded-md"
               >
                 Cancel
               </button>

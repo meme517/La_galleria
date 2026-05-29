@@ -246,8 +246,8 @@ const OrdersPage = ({ onNavigate }) => {
         {/* Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
           <div>
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">{t('orders.title', 'Food & Drinks')}</h1>
-            <p className="text-gray-600">{t('orders.subtitle', 'Order from featured and bar menu selections')}</p>
+            <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-2">{t('orders.title', 'Food & Drinks')}</h1>
+            <p className="text-gray-600 dark:text-gray-300">{t('orders.subtitle', 'Order from featured and bar menu selections')}</p>
           </div>
           <button
             onClick={() => onNavigate('home')}
@@ -258,10 +258,10 @@ const OrdersPage = ({ onNavigate }) => {
         </div>
 
         {/* Booking / Orders Tabs */}
-        <div className="mb-6 border-b border-gray-200">
+        <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
           <nav className="-mb-px flex flex-wrap gap-2">
             <button
-              className="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap"
+              className="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600 whitespace-nowrap"
               onClick={() => onNavigate('booking')}
             >
               {t('booking.bookingTab', 'Booking')}
@@ -278,14 +278,14 @@ const OrdersPage = ({ onNavigate }) => {
           {/* Menu Items Section */}
           <div className="lg:col-span-2">
             {/* Category Tabs */}
-            <div className="mb-6 flex flex-wrap gap-2 border-b border-gray-200 pb-4">
+            <div className="mb-6 flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700 pb-4">
               {categories.map(category => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
                   className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeCategory === category
                     ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700'
                     }`}
                 >
                   {getCategoryDisplayName(category)}
@@ -295,18 +295,18 @@ const OrdersPage = ({ onNavigate }) => {
 
             {/* Menu Items Grid */}
             {getFilteredMenuItems().length === 0 ? (
-              <div className="bg-white p-12 rounded-lg shadow-md text-center">
-                <p className="text-gray-500 text-lg">No items available in this category</p>
+              <div className="bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 p-12 rounded-lg shadow-md text-center">
+                <p className="text-gray-500 dark:text-gray-300 text-lg">No items available in this category</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {getFilteredMenuItems().map(item => (
                   <div
                     key={item._id || item.id}
-                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                    className="bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
                   >
                     {item.image && (
-                      <div className="h-48 bg-gray-200 overflow-hidden">
+                      <div className="h-48 bg-gray-200 dark:bg-gray-700 overflow-hidden">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -317,13 +317,13 @@ const OrdersPage = ({ onNavigate }) => {
                     )}
                     <div className="p-5">
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-bold text-xl text-gray-900">{item.name}</h3>
-                        <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                        <h3 className="font-bold text-xl text-gray-900 dark:text-gray-100">{item.name}</h3>
+                        <span className="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
                           {getCategoryDisplayName(item.category)}
                         </span>
                       </div>
                       {item.description && (
-                        <p className="text-gray-600 text-sm mb-3 line-clamp-2">{item.description}</p>
+                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">{item.description}</p>
                       )}
                       <div className="flex justify-between items-center">
                         <p className="text-orange-600 font-bold text-xl">${(item.price || 0).toFixed(2)}</p>
@@ -349,11 +349,11 @@ const OrdersPage = ({ onNavigate }) => {
           {/* Cart & Order Form Sidebar */}
           <div className="lg:col-span-1">
             {/* Cart */}
-            <div className="bg-white p-6 rounded-lg shadow-md sticky top-4">
+            <div className="bg-white dark:bg-gray-800/85 border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow-md sticky top-4">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">{t('orders.cart', 'Your Cart')}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('orders.cart', 'Your Cart')}</h2>
                 {cart.length > 0 && (
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                  <span className="bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm font-semibold">
                     {cart.reduce((sum, item) => sum + item.quantity, 0)} items
                   </span>
                 )}
@@ -361,35 +361,35 @@ const OrdersPage = ({ onNavigate }) => {
 
               {cart.length === 0 ? (
                 <div className="text-center py-12">
-                  <svg className="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="mx-auto h-16 w-16 text-gray-400 dark:text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                   </svg>
-                  <p className="text-gray-500">{t('orders.emptyCart', 'Your cart is empty')}</p>
-                  <p className="text-gray-400 text-sm mt-1">{t('orders.addItems', 'Add items from the menu to get started')}</p>
+                  <p className="text-gray-500 dark:text-gray-300">{t('orders.emptyCart', 'Your cart is empty')}</p>
+                  <p className="text-gray-400 dark:text-gray-300 text-sm mt-1">{t('orders.addItems', 'Add items from the menu to get started')}</p>
                 </div>
               ) : (
                 <>
                   <div className="space-y-3 mb-6 max-h-64 overflow-y-auto">
                     {cart.map(item => (
-                      <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/70 rounded-lg">
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-gray-900 truncate">{item.name}</p>
-                          <p className="text-sm text-gray-600">
+                          <p className="font-medium text-gray-900 dark:text-gray-100 truncate">{item.name}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
                             ${(item.price || 0).toFixed(2)} × {item.quantity}
                           </p>
                         </div>
                         <div className="flex items-center space-x-2 ml-3">
                           <button
                             onClick={() => updateQuantity(item.id, -1)}
-                            className="w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition-colors"
+                            className="w-8 h-8 flex items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full transition-colors"
                             aria-label="Decrease quantity"
                           >
                             −
                           </button>
-                          <span className="w-8 text-center font-semibold">{item.quantity}</span>
+                          <span className="w-8 text-center font-semibold text-gray-900 dark:text-gray-100">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, 1)}
-                            className="w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition-colors"
+                            className="w-8 h-8 flex items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full transition-colors"
                             aria-label="Increase quantity"
                           >
                             +
@@ -408,8 +408,8 @@ const OrdersPage = ({ onNavigate }) => {
                     ))}
                   </div>
 
-                  <div className="border-t-2 border-gray-200 pt-4 mb-6">
-                    <div className="flex justify-between items-center text-xl font-bold text-gray-900">
+                  <div className="border-t-2 border-gray-200 dark:border-gray-700 pt-4 mb-6">
+                    <div className="flex justify-between items-center text-xl font-bold text-gray-900 dark:text-gray-100">
                       <span>{t('orders.total', 'Total')}:</span>
                       <span className="text-blue-600">${calculateTotal().toFixed(2)}</span>
                     </div>
@@ -420,31 +420,31 @@ const OrdersPage = ({ onNavigate }) => {
                     {user && (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Customer Name</label>
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Customer Name</label>
                           <input
                             type="text"
                             value={user.name || ''}
                             readOnly
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none"
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700/70 text-gray-900 dark:text-gray-100 focus:outline-none"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Customer Email</label>
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Customer Email</label>
                           <input
                             type="email"
                             value={user.email || ''}
                             readOnly
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none"
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700/70 text-gray-900 dark:text-gray-100 focus:outline-none"
                           />
                         </div>
                       </div>
                     )}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Order Type *</label>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Order Type *</label>
                       <select
                         value={orderType}
                         onChange={(e) => setOrderType(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="dine-in">🍽️ Dine In</option>
                         <option value="takeaway">🥡 Takeaway</option>
@@ -454,12 +454,12 @@ const OrdersPage = ({ onNavigate }) => {
 
                     {orderType === 'dine-in' && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Table Number *</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Table Number *</label>
                         <input
                           type="number"
                           value={tableNumber}
                           onChange={(e) => setTableNumber(e.target.value)}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-400"
                           min="1"
                           placeholder="Enter table number"
                         />
@@ -468,11 +468,11 @@ const OrdersPage = ({ onNavigate }) => {
 
                     {orderType === 'delivery' && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Delivery Address *</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Delivery Address *</label>
                         <textarea
                           value={deliveryAddress}
                           onChange={(e) => setDeliveryAddress(e.target.value)}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-400"
                           rows="3"
                           placeholder="Enter your delivery address"
                         />
@@ -480,51 +480,51 @@ const OrdersPage = ({ onNavigate }) => {
                     )}
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                         Time to reach (optional)
                       </label>
                       <input
                         type="time"
                         value={requestedTime}
                         onChange={(e) => setRequestedTime(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-gray-500 dark:text-gray-300 mt-1">
                         Example: when you want the order delivered or ready.
                       </p>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                         Location (optional)
                       </label>
                       <input
                         type="text"
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-400"
                         placeholder="Room number or area (e.g. Poolside, Lobby)"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Special Instructions (Optional)</label>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Special Instructions (Optional)</label>
                       <textarea
                         value={specialInstructions}
                         onChange={(e) => setSpecialInstructions(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-400"
                         rows="2"
                         placeholder="Any special requests?"
                       />
                     </div>
 
                     {error && (
-                      <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                      <div className="p-3 bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-200 text-sm">
                         {error}
                       </div>
                     )}
                     {success && (
-                      <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+                      <div className="p-3 bg-green-50 dark:bg-green-900/40 border border-green-200 dark:border-green-800 rounded-lg text-green-700 dark:text-green-200 text-sm">
                         {success}
                       </div>
                     )}
@@ -542,23 +542,23 @@ const OrdersPage = ({ onNavigate }) => {
             </div>
 
             {/* Order History */}
-            <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-              <h2 className="text-xl font-bold mb-4 text-gray-900">{t('orders.recentOrders', 'Recent Orders')}</h2>
+            <div className="bg-white dark:bg-gray-800/85 border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow-md mt-6">
+              <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('orders.recentOrders', 'Recent Orders')}</h2>
               {orders.length === 0 ? (
                 <div className="text-center py-8">
-                  <p className="text-gray-500">No orders yet</p>
-                  <p className="text-gray-400 text-sm mt-1">Your order history will appear here</p>
+                  <p className="text-gray-500 dark:text-gray-300">No orders yet</p>
+                  <p className="text-gray-400 dark:text-gray-300 text-sm mt-1">Your order history will appear here</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {orders.slice(0, 5).map(order => (
-                    <div key={order._id || order.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div key={order._id || order.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700/60 transition-colors">
                       <div className="flex justify-between items-start mb-2">
                         <div>
-                          <p className="font-semibold text-gray-900">
+                          <p className="font-semibold text-gray-900 dark:text-gray-100">
                             Order #{String(order._id || order.id).slice(-6).toUpperCase()}
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-500 dark:text-gray-300">
                             {new Date(order.createdAt).toLocaleDateString('en-US', {
                               month: 'short',
                               day: 'numeric',
@@ -572,17 +572,17 @@ const OrdersPage = ({ onNavigate }) => {
                           order.status === 'preparing' ? 'bg-yellow-100 text-yellow-800' :
                             order.status === 'pending' ? 'bg-blue-100 text-blue-800' :
                               order.status === 'cancelled' ? 'bg-red-100 text-red-800' :
-                                'bg-gray-100 text-gray-800'
+                                'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100'
                           }`}>
                           {order.status?.charAt(0).toUpperCase() + order.status?.slice(1) || 'Pending'}
                         </span>
                       </div>
                       {order.items && order.items.length > 0 && (
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                           {order.items.length} item{order.items.length > 1 ? 's' : ''}
                         </p>
                       )}
-                      <p className="text-lg font-bold text-gray-900">
+                      <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
                         ${(order.totalAmount || 0).toFixed(2)}
                       </p>
                     </div>
