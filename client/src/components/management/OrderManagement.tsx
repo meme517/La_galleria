@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ClipboardDocumentListIcon, ClockIcon, CheckCircleIcon, TruckIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { Order } from '../../types';
 import { apiService } from '../../services/api';
+import { formatRwfFromUsd } from '../../utils/currency';
 
 const OrderManagement: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
@@ -101,7 +102,7 @@ const OrderManagement: React.FC = () => {
                                             </div>
 
                                             <div className="flex justify-between items-center">
-                                                <span className="text-sm font-medium text-gray-900">${order.totalAmount.toFixed(2)}</span>
+                                                <span className="text-sm font-medium text-gray-900">{formatRwfFromUsd(order.totalAmount)}</span>
                                                 <span className="text-xs text-gray-500 text-right">
                                                     {order.requestedTime ? (
                                                         <span className="block">Requested: {order.requestedTime}</span>

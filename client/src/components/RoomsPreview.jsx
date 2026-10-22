@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { API_BASE_URL } from '../services/config';
 import { useLanguage } from '../context/LanguageContext';
+import { formatRwfFromUsd } from '../utils/currency';
 
 const RoomsPreview = ({ onNavigate }) => {
   const [rooms, setRooms] = useState([]);
@@ -121,7 +122,7 @@ const RoomsPreview = ({ onNavigate }) => {
                   />
                   <div className="absolute top-4 left-4 bg-slate-900/75 border border-cyan-300/40 text-cyan-200 backdrop-blur-sm px-4 py-2 rounded-lg">
                     <span className="font-bold text-lg">
-                      ${Number(room.price || 0).toFixed(0)}/night
+                      {formatRwfFromUsd(Number(room.price || 0))}/night
                     </span>
                   </div>
                 </div>

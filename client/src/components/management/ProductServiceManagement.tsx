@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { DataTable } from '../shared/DataTable';
 import { Modal } from '../shared/Modal';
 import { MenuItem, Room } from '../../types';
+import { formatRwfFromUsd, usdToRwf } from '../../utils/currency';
 
 interface TableItem {
   id: string;
@@ -56,7 +57,7 @@ const ProductServiceManagement: React.FC = () => {
   const menuColumns = [
     { key: 'name', header: 'Name' },
     { key: 'description', header: 'Description' },
-    { key: 'price', header: 'Price', render: (value: number) => `$${value.toFixed(2)}` },
+    { key: 'price', header: 'Price (RWF)', render: (value: number) => formatRwfFromUsd(value) },
     { key: 'category', header: 'Category' },
     { key: 'available', header: 'Available', render: (value: boolean) => value ? 'Yes' : 'No' },
     { key: 'actions', header: 'Actions', render: (_: any, item: TableItem) => (
@@ -95,7 +96,7 @@ const ProductServiceManagement: React.FC = () => {
         {value.charAt(0).toUpperCase() + value.slice(1)}
       </span>
     )},
-    { key: 'price', header: 'Price', render: (value: number) => `$${value.toFixed(2)}` },
+    { key: 'price', header: 'Price (RWF)', render: (value: number) => formatRwfFromUsd(value) },
     { key: 'actions', header: 'Actions', render: (_: any, item: TableItem) => (
       <div className="flex space-x-2">
         <button
@@ -153,7 +154,7 @@ const ProductServiceManagement: React.FC = () => {
       setMenuFormData({
         name: menuItem.name,
         description: menuItem.description,
-        price: menuItem.price,
+        price: usdToRwf(menuItem.price),
         category: menuItem.category,
         available: menuItem.available,
       });
@@ -163,7 +164,7 @@ const ProductServiceManagement: React.FC = () => {
         number: room.number,
         type: room.type,
         status: room.status,
-        price: room.price,
+        price: usdToRwf(room.price),
       });
     }
     setIsModalOpen(true);
@@ -258,14 +259,14 @@ const ProductServiceManagement: React.FC = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Price (RWF)</label>
                 <input
                   type="number"
-                  step="0.01"
+                  step="1"
                   value={menuFormData.price}
                   onChange={(e) => setMenuFormData({ ...menuFormData, price: parseFloat(e.target.value) || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="0.00"
+                  placeholder="0"
                 />
               </div>
               <div>
@@ -345,14 +346,14 @@ const ProductServiceManagement: React.FC = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Price per Night</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Price per Night (RWF)</label>
                 <input
                   type="number"
-                  step="0.01"
+                  step="1"
                   value={roomFormData.price}
                   onChange={(e) => setRoomFormData({ ...roomFormData, price: parseFloat(e.target.value) || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="0.00"
+                  placeholder="0"
                 />
               </div>
             </div>

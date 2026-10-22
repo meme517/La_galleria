@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import ScrollReveal from '../components/ScrollReveal';
+import { formatRwfFromUsd } from '../utils/currency';
 
 const BarMenuPage = ({ onNavigate }) => {
   const { t } = useLanguage();
@@ -12,7 +13,7 @@ const BarMenuPage = ({ onNavigate }) => {
       id: 1,
       name: 'Classic Mojito',
       category: 'cocktails',
-      price: '$12.99',
+      price: 12.99,
       image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&h=300&fit=crop',
       description: 'Fresh mint, lime, rum, and soda water'
     },
@@ -20,7 +21,7 @@ const BarMenuPage = ({ onNavigate }) => {
       id: 2,
       name: 'Old Fashioned',
       category: 'cocktails',
-      price: '$14.99',
+      price: 14.99,
       image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&h=300&fit=crop',
       description: 'Bourbon, sugar, bitters, and orange peel'
     },
@@ -28,7 +29,7 @@ const BarMenuPage = ({ onNavigate }) => {
       id: 3,
       name: 'Wine Selection',
       category: 'wine',
-      price: '$8.99 - $25.99',
+      price: [8.99, 25.99],
       image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&h=300&fit=crop',
       description: 'Red, white, and sparkling wines available'
     },
@@ -36,7 +37,7 @@ const BarMenuPage = ({ onNavigate }) => {
       id: 4,
       name: 'Craft Beer Flight',
       category: 'beer',
-      price: '$16.99',
+      price: 16.99,
       image: 'https://images.unsplash.com/photo-1584384689201-e3bc829f5e93?w=400&h=300&fit=crop',
       description: 'Selection of 4 local craft beers'
     },
@@ -44,7 +45,7 @@ const BarMenuPage = ({ onNavigate }) => {
       id: 5,
       name: 'Premium Whiskey',
       category: 'spirits',
-      price: '$18.99 - $45.99',
+      price: [18.99, 45.99],
       image: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&h=300&fit=crop',
       description: 'Fine selection of single malt and blended whiskeys'
     },
@@ -52,7 +53,7 @@ const BarMenuPage = ({ onNavigate }) => {
       id: 6,
       name: 'Tropical Paradise',
       category: 'cocktails',
-      price: '$13.99',
+      price: 13.99,
       image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&h=300&fit=crop',
       description: 'Rum, coconut, pineapple, and tropical fruits'
     }
@@ -115,7 +116,9 @@ const BarMenuPage = ({ onNavigate }) => {
                     transition={{ duration: 0.4 }}
                   />
                   <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full font-semibold text-sm">
-                    {item.price}
+                    {Array.isArray(item.price)
+                      ? `${formatRwfFromUsd(item.price[0])} - ${formatRwfFromUsd(item.price[1])}`
+                      : formatRwfFromUsd(item.price)}
                   </div>
                 </div>
                 <div className="p-6 flex flex-col space-y-3">
@@ -173,5 +176,4 @@ const BarMenuPage = ({ onNavigate }) => {
 };
 
 export default BarMenuPage;
-
 

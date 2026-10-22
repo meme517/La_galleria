@@ -1,6 +1,7 @@
 import ScrollReveal from './ScrollReveal';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { formatRwfFromUsd } from '../utils/currency';
 
 const FeaturedMenu = ({ onNavigate }) => {
   const { t } = useLanguage();
@@ -9,42 +10,42 @@ const FeaturedMenu = ({ onNavigate }) => {
     {
       id: 1,
       name: 'Grilled Salmon',
-      price: '$24.99',
+      price: 24.99,
       image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop',
       description: 'Fresh Atlantic salmon with herbs',
     },
     {
       id: 2,
       name: 'Beef Steak',
-      price: '$28.99',
+      price: 28.99,
       image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop',
       description: 'Premium cut with roasted vegetables',
     },
     {
       id: 3,
       name: 'Pasta Carbonara',
-      price: '$18.99',
+      price: 18.99,
       image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop',
       description: 'Creamy pasta with bacon and parmesan',
     },
     {
       id: 4,
       name: 'Caesar Salad',
-      price: '$14.99',
+      price: 14.99,
       image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&h=300&fit=crop',
       description: 'Fresh romaine with homemade dressing',
     },
     {
       id: 5,
       name: 'Chicken Curry',
-      price: '$19.99',
+      price: 19.99,
       image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop',
       description: 'Spiced curry with basmati rice',
     },
     {
       id: 6,
       name: 'Chocolate Cake',
-      price: '$12.99',
+      price: 12.99,
       image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop',
       description: 'Rich chocolate with vanilla ice cream',
     },
@@ -84,7 +85,7 @@ const FeaturedMenu = ({ onNavigate }) => {
                     transition={{ duration: 0.4 }}
                   />
                   <div className="absolute top-4 right-4 bg-slate-900/75 text-cyan-200 border border-cyan-300/40 px-3 py-1 rounded-full font-semibold text-sm backdrop-blur-sm dark:bg-slate-800/80">
-                    {item.price}
+                    {formatRwfFromUsd(item.price)}
                   </div>
                 </div>
                 <div className="p-6">

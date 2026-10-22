@@ -8,6 +8,7 @@ import { SOCKET_URL } from '../services/config';
 import { logout } from '../services/authService';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
 import { useLanguage } from '../context/LanguageContext';
+import { formatRwfFromUsd } from '../utils/currency';
 
 interface ServiceProviderPageProps {
   onNavigate: (page: string) => void;
@@ -384,7 +385,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
             <div>
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">{t('serviceProvider.salaryHistory', 'Salary History')}</h3>
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            {t('serviceProvider.monthlySalary', 'Monthly salary')}: ${salaryInfo.salary.toFixed(2)}
+            {t('serviceProvider.monthlySalary', 'Monthly salary')}: {formatRwfFromUsd(salaryInfo.salary)}
           </p>
             </div>
             <button
@@ -419,7 +420,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
                   {salaryInfo.payments.map((payment: any) => (
                     <tr key={payment._id || payment.id}>
                       <td className="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">
-                        ${Number(payment.amount || 0).toFixed(2)}
+                        {formatRwfFromUsd(Number(payment.amount || 0))}
                       </td>
                       <td className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
                         {new Date(payment.paidAt).toLocaleDateString()}

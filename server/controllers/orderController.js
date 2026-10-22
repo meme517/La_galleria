@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const MenuItem = require('../models/MenuItem');
 const { createNotification, createNotificationForRole } = require('../utils/notificationHelper');
+const { formatRwfFromUsd } = require('../utils/currency');
 
 // Create new order
 const createOrder = async (req, res) => {
@@ -46,7 +47,7 @@ const createOrder = async (req, res) => {
     // Notify admin about new order
     await createNotificationForRole({
       title: 'New Order Received',
-      message: `New order #${order._id} from ${order.customer.name} - Total: $${order.totalAmount.toFixed(2)}${order.requestedTime ? ` - Requested: ${order.requestedTime}` : ''}`,
+      message: `New order #${order._id} from ${order.customer.name} - Total: ${formatRwfFromUsd(order.totalAmount)}${order.requestedTime ? ` - Requested: ${order.requestedTime}` : ''}`,
       type: 'order',
       recipientRole: 'admin',
       relatedId: order._id,

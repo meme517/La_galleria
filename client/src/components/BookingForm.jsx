@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../services/config';
+import { formatRwfFromUsd } from '../utils/currency';
 
 const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
   const [user, setUser] = useState(null);
@@ -284,7 +285,7 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
               <option value="">Select a room</option>
               {rooms.filter(room => room.available !== false).map(room => (
                 <option key={room._id} value={room._id}>
-                  {room.number || room.roomNumber} - {room.type} (${room.price}/night)
+                  {room.number || room.roomNumber} - {room.type} ({formatRwfFromUsd(room.price)}/night)
                 </option>
               ))}
             </select>
@@ -313,8 +314,8 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
                 {rooms.find(r => r._id === formData.roomId)?.type}
               </p>
               <p>Nights: {calculateNights()}</p>
-              <p>Room Cost: ${rooms.find(r => r._id === formData.roomId)?.price * calculateNights()}</p>
-              <p className="font-medium text-gray-900 dark:text-gray-100">Total: ${calculateTotalAmount().toFixed(2)}</p>
+              <p>Room Cost: {formatRwfFromUsd((rooms.find(r => r._id === formData.roomId)?.price || 0) * calculateNights())}</p>
+              <p className="font-medium text-gray-900 dark:text-gray-100">Total: {formatRwfFromUsd(calculateTotalAmount())}</p>
             </div>
           </div>
         )}

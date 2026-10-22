@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { apiService } from '../../services/api';
 import { Staff } from '../../types';
+import { formatRwfFromUsd, rwfToUsd, usdToRwf } from '../../utils/currency';
 
 interface SalaryRow extends Staff {
   lastPayment?: {
@@ -47,7 +48,7 @@ const SalaryManagement: React.FC = () => {
 
   const handleSalarySave = async (userId: string) => {
     try {
-      const salaryValue = Number(editingSalary[userId]);
+      const salaryValue = rwfToUsd(Number(editingSalary[userId]));
       await apiService.setSalary(userId, salaryValue);
       setEditingSalary((prev) => ({ ...prev, [userId]: '' }));
       await fetchOverview();
@@ -61,7 +62,7 @@ const SalaryManagement: React.FC = () => {
       open: true,
       userId: row.id,
       name: row.name,
-      amount: row.salary ? String(row.salary) : '',
+      amount: row.salary ? String(usdToRwf(row.salary)) : '',
       paidAt: new Date().toISOString().split('T')[0],
       notes: ''
     });
@@ -75,7 +76,7 @@ const SalaryManagement: React.FC = () => {
     if (!paymentModal.userId) return;
     try {
       await apiService.recordSalaryPayment(paymentModal.userId, {
-        amount: paymentModal.amount ? Number(paymentModal.amount) : undefined,
+        amount: paymentModal.amount ? rwfToUsd(Number(paymentModal.amount)) : undefined,
         paidAt: paymentModal.paidAt,
         notes: paymentModal.notes
       });
@@ -111,7 +112,7 @@ const SalaryManagement: React.FC = () => {
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Staff</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Department</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Monthly Salary</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Monthly Salary (RWF)</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Last Paid</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -131,7 +132,7 @@ const SalaryManagement: React.FC = () => {
                         <input
                           type="number"
                           min="0"
-                          value={editingSalary[row.id] ?? (row.salary ?? 0)}
+                          value={editingSalary[row.id] ?? usdToRwf(row.salary ?? 0)}
                           onChange={(e) => setEditingSalary((prev) => ({ ...prev, [row.id]: e.target.value }))}
                           className="w-28 px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md text-sm"
                         />
@@ -146,7 +147,7 @@ const SalaryManagement: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                       {row.lastPayment ? (
                         <div>
-                          <div>${row.lastPayment.amount.toFixed(2)}</div>
+                          <div>{formatRwfFromUsd(row.lastPayment.amount)}</div>
                           <div className="text-xs text-gray-500 dark:text-gray-300">{new Date(row.lastPayment.paidAt).toLocaleDateString()}</div>
                         </div>
                       ) : (
@@ -177,7 +178,7 @@ const SalaryManagement: React.FC = () => {
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Amount</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Amount (RWF)</label>
                 <input
                   type="number"
                   min="0"

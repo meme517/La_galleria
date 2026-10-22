@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const SalaryPayment = require('../models/SalaryPayment');
 const { createNotification } = require('../utils/notificationHelper');
+const { formatRwfFromUsd } = require('../utils/currency');
 
 const getSalaryOverview = async (req, res) => {
   try {
@@ -105,7 +106,7 @@ const recordPayment = async (req, res) => {
 
     await createNotification({
       title: 'Salary Payment Received',
-      message: `A salary payment of $${paymentAmount.toFixed(2)} was recorded for you.`,
+      message: `A salary payment of ${formatRwfFromUsd(paymentAmount)} was recorded for you.`,
       type: 'payment',
       recipientRole: 'serviceProvider',
       recipientId: user._id,

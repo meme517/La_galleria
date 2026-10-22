@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CalendarDaysIcon, ListBulletIcon, UserIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { Booking } from '../../types';
 import { apiService } from '../../services/api';
+import { formatRwfFromUsd } from '../../utils/currency';
 
 const BookingManagement: React.FC = () => {
     const [view, setView] = useState<'calendar' | 'list'>('list');
@@ -261,7 +262,7 @@ const BookingManagement: React.FC = () => {
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                                ${booking.totalAmount}
+                                                {formatRwfFromUsd(booking.totalAmount)}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                 <div className="flex space-x-2">

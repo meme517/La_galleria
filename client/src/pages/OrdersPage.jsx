@@ -4,6 +4,7 @@ import CustomerNavbar from '../components/CustomerNavbar';
 import Footer from '../components/Footer';
 import { useLanguage } from '../context/LanguageContext';
 import { API_BASE_URL } from '../services/config';
+import { formatRwfFromUsd } from '../utils/currency';
 
 const OrdersPage = ({ onNavigate }) => {
   const [user, setUser] = useState(null);
@@ -86,7 +87,7 @@ const OrdersPage = ({ onNavigate }) => {
             addToCart({
               id: menuItem._id || menuItem.id,
               name: menuItem.name,
-              price: menuItem.price || parseFloat(item.price?.replace('$', '') || '0'),
+              price: menuItem.price || Number(item.price) || 0,
               quantity: 1,
               category: menuItem.category || 'general'
             });
@@ -327,7 +328,7 @@ const OrdersPage = ({ onNavigate }) => {
                         <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">{item.description}</p>
                       )}
                       <div className="flex justify-between items-center">
-                        <p className="text-orange-600 font-bold text-xl">${(item.price || 0).toFixed(2)}</p>
+                        <p className="text-orange-600 font-bold text-xl">{formatRwfFromUsd(item.price || 0)}</p>
                         <button
                           onClick={() => addToCart({
                             id: item._id || item.id,
@@ -376,7 +377,7 @@ const OrdersPage = ({ onNavigate }) => {
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-gray-900 dark:text-gray-100 truncate">{item.name}</p>
                           <p className="text-sm text-gray-600 dark:text-gray-300">
-                            ${(item.price || 0).toFixed(2)} × {item.quantity}
+                            {formatRwfFromUsd(item.price || 0)} × {item.quantity}
                           </p>
                         </div>
                         <div className="flex items-center space-x-2 ml-3">
@@ -412,7 +413,7 @@ const OrdersPage = ({ onNavigate }) => {
                   <div className="border-t-2 border-gray-200 dark:border-gray-700 pt-4 mb-6">
                     <div className="flex justify-between items-center text-xl font-bold text-gray-900 dark:text-gray-100">
                       <span>{t('orders.total', 'Total')}:</span>
-                      <span className="text-blue-600">${calculateTotal().toFixed(2)}</span>
+                      <span className="text-blue-600">{formatRwfFromUsd(calculateTotal())}</span>
                     </div>
                   </div>
 
@@ -584,7 +585,7 @@ const OrdersPage = ({ onNavigate }) => {
                         </p>
                       )}
                       <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                        ${(order.totalAmount || 0).toFixed(2)}
+                        {formatRwfFromUsd(order.totalAmount || 0)}
                       </p>
                     </div>
                   ))}
