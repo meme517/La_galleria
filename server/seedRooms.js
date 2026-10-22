@@ -1,6 +1,5 @@
 /*
-  Seed the rooms used by the public "Our Rooms" section on the home page.
-  Safe to run multiple times: existing rooms are updated, not duplicated.
+  Add the default rooms when the database has no room records.
 
   Usage:
     cd server
@@ -88,37 +87,38 @@ const roomsData = [
   }
 ];
 
+async function seedDefaultRoomsIfEmpty() {
+  const existingRoomCount = await Room.countDocuments();
+  if (existingRoomCount > 0) {
+    console.log(`Skipping default rooms: found ${existingRoomCount} existing room(s).`);
+    return;
+  }
+
+  await Room.insertMany(roomsData.map((room) => ({ ...room, available: true })));
+  console.log(`Seeded ${roomsData.length} default rooms.`);
+}
+
 async function run() {
   const uri = process.env.MONGO_URI_REST || deriveRestUriFrom(process.env.MONGO_URI) || process.env.MONGO_URI;
   if (!uri) {
-    console.error('No DB URI. Set MONGO_URI or MONGO_URI_REST in .env');
-    process.exit(1);
+    throw new Error('No DB URI. Set MONGO_URI or MONGO_URI_REST in .env');
   }
 
   await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-  console.log('Connected to', uri);
-
+  console.log('Connected to MongoDB.');
   try {
-    for (const data of roomsData) {
-      const room = await Room.findOneAndUpdate(
-        { roomNumber: data.roomNumber },
-        { $set: { ...data, available: true } },
-        { new: true, upsert: true, setDefaultsOnInsert: true }
-      );
-      console.log('Seeded room', room.roomNumber, '-', room.name);
-    }
-
-    console.log('Total rooms:', await Room.countDocuments());
-  } catch (err) {
-    console.error('Seed rooms error', err);
-    process.exitCode = 1;
+    await seedDefaultRoomsIfEmpty();
   } finally {
     await mongoose.disconnect();
     console.log('Seed rooms finished');
   }
 }
 
-run().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+if (require.main === module) {
+  run().catch((err) => {
+    console.error(err);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { seedDefaultRoomsIfEmpty };

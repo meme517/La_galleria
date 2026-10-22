@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
+const { seedDefaultRoomsIfEmpty } = require('./seedRooms');
 
 const app = express();
 const server = http.createServer(app);
@@ -133,16 +134,16 @@ app.use((err, req, res, next) => {
 // Export app and io for tests. Start server only when run directly.
 if (require.main === module) {
 	mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
-		.then(() => {
+		.then(async () => {
 			console.log('MongoDB connected');
+			await seedDefaultRoomsIfEmpty();
 			startPayrollReminderScheduler();
+			server.listen(PORT, () => {
+				console.log(`Server running on port ${PORT}`);
+			});
 		})
 		.catch(err => {
-			console.error('MongoDB connection error:', err);
+			console.error('Server startup error:', err);
 			process.exit(1);
 		});
-
-	server.listen(PORT, () => {
-		console.log(`Server running on port ${PORT}`);
-	});
 }
