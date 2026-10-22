@@ -10,7 +10,9 @@ const RegisterPage = ({ onNavigate }) => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    securityWord: '',
+    confirmSecurityWord: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -53,7 +55,7 @@ const RegisterPage = ({ onNavigate }) => {
   const handleBackToRoles = () => {
     setStep('role-selection');
     setSelectedRole('');
-    setFormData({ name: '', email: '', password: '', confirmPassword: '' });
+    setFormData({ name: '', email: '', password: '', confirmPassword: '', securityWord: '', confirmSecurityWord: '' });
     setError('');
   };
 
@@ -71,16 +73,30 @@ const RegisterPage = ({ onNavigate }) => {
 
     // Validate password confirmation
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('register.passwordMismatch', 'Passwords do not match'));
+      setLoading(false);
+      return;
+    }
+
+    // Validate security word confirmation
+    if (formData.securityWord.trim().length < 3) {
+      setError(t('register.securityWordTooShort', 'Security word must be at least 3 characters'));
+      setLoading(false);
+      return;
+    }
+
+    if (formData.securityWord.trim().toLowerCase() !== formData.confirmSecurityWord.trim().toLowerCase()) {
+      setError(t('register.securityWordMismatch', 'Security words do not match'));
       setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post('http://localhost:3000/api/auth/register', {
         name: formData.name,
         email: formData.email,
         password: formData.password,
+        securityWord: formData.securityWord,
         role: selectedRole
       });
       localStorage.setItem('token', response.data.token);
@@ -126,6 +142,12 @@ const RegisterPage = ({ onNavigate }) => {
             </select>
           </div>
           <div className="text-center">
+            <button
+              onClick={() => onNavigate('home')}
+              className="text-orange-600 hover:text-orange-700 font-medium flex items-center justify-center mx-auto mb-4"
+            >
+              ← {t('register.backHome', 'Back to Home')}
+            </button>
             <h2 className="text-4xl font-bold text-gray-900 mb-2">
               {t('register.title', 'Create your account')}
             </h2>
@@ -198,6 +220,12 @@ const RegisterPage = ({ onNavigate }) => {
         >
           <div className="text-center mb-8">
             <button
+              onClick={() => onNavigate('home')}
+              className="text-orange-600 hover:text-orange-700 font-medium flex items-center justify-center mx-auto mb-4"
+            >
+              ← {t('register.backHome', 'Back to Home')}
+            </button>
+            <button
               onClick={handleBackToRoles}
               className="text-orange-600 hover:text-orange-700 font-medium flex items-center justify-center mb-4"
             >
@@ -269,6 +297,12 @@ const RegisterPage = ({ onNavigate }) => {
           </select>
         </div>
         <div className="text-center mb-8">
+          <button
+            onClick={() => onNavigate('home')}
+            className="text-orange-600 hover:text-orange-700 font-medium flex items-center justify-center mx-auto mb-4"
+          >
+            ← {t('register.backHome', 'Back to Home')}
+          </button>
           <button
             onClick={handleBackToRoles}
             className="text-orange-600 hover:text-orange-700 font-medium flex items-center justify-center mb-4"
@@ -358,9 +392,9 @@ const RegisterPage = ({ onNavigate }) => {
               />
             </div>
 
-            <div>
+<div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                Confirm Password
+                {t('register.confirmPassword', 'Confirm Password')}
               </label>
               <input
                 id="confirmPassword"
@@ -373,6 +407,47 @@ const RegisterPage = ({ onNavigate }) => {
                 className="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
                 placeholder="Confirm your password"
               />
+            </div>
+
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+              <div>
+                <label htmlFor="securityWord" className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('register.securityWord', 'Security Word')}
+                </label>
+                <input
+                  id="securityWord"
+                  name="securityWord"
+                  type="text"
+                  autoComplete="off"
+                  required
+                  minLength={3}
+                  value={formData.securityWord}
+                  onChange={handleChange}
+                  className="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  placeholder={t('register.securityWordPlaceholder', 'Choose a word you will remember')}
+                />
+                <p className="mt-2 text-xs text-gray-600">
+                  {t('register.securityWordHint', 'You will use this word to reset your password if you forget it. It is not case sensitive.')}
+                </p>
+              </div>
+
+              <div className="mt-4">
+                <label htmlFor="confirmSecurityWord" className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('register.confirmSecurityWord', 'Confirm Security Word')}
+                </label>
+                <input
+                  id="confirmSecurityWord"
+                  name="confirmSecurityWord"
+                  type="text"
+                  autoComplete="off"
+                  required
+                  minLength={3}
+                  value={formData.confirmSecurityWord}
+                  onChange={handleChange}
+                  className="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
+                  placeholder={t('register.confirmSecurityWordPlaceholder', 'Repeat your security word')}
+                />
+              </div>
             </div>
 
             <button
@@ -409,6 +484,5 @@ const RegisterPage = ({ onNavigate }) => {
 };
 
 export default RegisterPage;
-
 
 

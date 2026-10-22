@@ -99,7 +99,7 @@ const MessagingEmployees: React.FC = () => {
     useEffect(() => {
         // Socket.io integration for real-time messages
         if (user?.id) {
-            const socket = io('http://localhost:5000');
+            const socket = io('http://localhost:3000');
             socket.emit('join', user.id);
 
             socket.on('newMessage', (message) => {

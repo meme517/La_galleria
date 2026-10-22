@@ -9,6 +9,7 @@ import BarMenuPage from './pages/BarMenuPage';
 import EventsPage from './pages/EventsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import AdminPage from './pages/AdminPage.tsx';
 import ServiceProviderPage from './pages/ServiceProviderPage.tsx';
 import { getCurrentUser, isAuthenticated, getUserRole } from './services/authService';
@@ -59,7 +60,7 @@ function App() {
       }
 
       // Redirect authenticated users away from login/register pages
-      if ((currentPage === 'login' || currentPage === 'register') && authenticated) {
+      if ((currentPage === 'login' || currentPage === 'register' || currentPage === 'forgot-password') && authenticated) {
         if (userRole === 'customer') {
           setCurrentPage('home');
         } else if (userRole === 'admin') {
@@ -157,7 +158,7 @@ function App() {
     const userRole = getUserRole();
 
     // Public routes
-    const publicRoutes = ['home', 'login', 'register'];
+    const publicRoutes = ['home', 'login', 'register', 'forgot-password'];
 
     if (publicRoutes.includes(page)) {
       previousPageRef.current = currentPage;
@@ -207,6 +208,7 @@ function App() {
       {currentPage === 'events' && <EventsPage onNavigate={handleNavigate} />}
       {currentPage === 'login' && <LoginPage onNavigate={handleNavigate} />}
       {currentPage === 'register' && <RegisterPage onNavigate={handleNavigate} />}
+      {currentPage === 'forgot-password' && <ForgotPasswordPage onNavigate={handleNavigate} />}
       {currentPage === 'admin' && <AdminPage onNavigate={handleNavigate} />}
       {currentPage === 'serviceProvider' && <ServiceProviderPage onNavigate={handleNavigate} />}
     </>

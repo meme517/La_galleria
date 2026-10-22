@@ -53,7 +53,7 @@ const OrdersPage = ({ onNavigate }) => {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/menu/public');
+      const response = await axios.get('http://localhost:3000/api/menu/public');
       const items = Array.isArray(response.data) ? response.data : (response.data.menuItems || []);
       setMenuItems(items);
 
@@ -104,7 +104,7 @@ const OrdersPage = ({ onNavigate }) => {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/orders/my-orders', {
+      const response = await axios.get('http://localhost:3000/api/orders/my-orders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Handle both array and object response formats
@@ -199,7 +199,7 @@ const OrdersPage = ({ onNavigate }) => {
         .filter(Boolean)
         .join(' | ');
       const response = await axios.post(
-        'http://localhost:5000/api/orders',
+        'http://localhost:3000/api/orders',
         {
           items: cart.map(item => ({
             menuItem: item.id,

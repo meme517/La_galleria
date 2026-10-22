@@ -39,7 +39,7 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
 
     const fetchData = async () => {
       try {
-      const roomsResponse = await axios.get('http://localhost:5000/api/rooms/available');
+      const roomsResponse = await axios.get('http://localhost:3000/api/rooms/available');
       const rawRooms = roomsResponse.data.rooms || roomsResponse.data || [];
       const normalized = rawRooms.map((r) => ({
         ...r,
@@ -138,7 +138,7 @@ const BookingForm = ({ onBookingAdded, onBookingSubmit }) => {
         specialRequests: combinedSpecialRequests
       };
 
-      const response = await axios.post('http://localhost:5000/api/bookings', bookingData, {
+      const response = await axios.post('http://localhost:3000/api/bookings', bookingData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuccess('Booking created successfully!');

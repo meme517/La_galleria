@@ -41,7 +41,7 @@ const BookingPage = ({ onNavigate }) => {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/bookings/my-bookings', {
+      const response = await axios.get('http://localhost:3000/api/bookings/my-bookings', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBookings(response.data);
@@ -60,7 +60,7 @@ const BookingPage = ({ onNavigate }) => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`http://localhost:5000/api/bookings/${id}/cancel`, {}, {
+      const response = await axios.put(`http://localhost:3000/api/bookings/${id}/cancel`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const updated = response.data;

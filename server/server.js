@@ -54,7 +54,7 @@ function deriveRestUriFrom(uri) {
 }
 
 const mongoUri = process.env.MONGO_URI_REST || deriveRestUriFrom(process.env.MONGO_URI) || process.env.MONGO_URI;
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Socket.io connection handling
 io.on('connection', (socket) => {

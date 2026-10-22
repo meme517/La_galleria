@@ -25,7 +25,8 @@ const createUser = async (req, res) => {
       permissions,
       status,
       autoGeneratePassword,
-      sendCredentials
+      sendCredentials,
+      securityWord
     } = req.body;
 
     if (!['serviceProvider', 'admin'].includes(role)) {
@@ -56,6 +57,13 @@ const createUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(finalPassword, salt);
 
+    // Optional recovery word so the account can reset its own password later
+    let hashedSecurityWord;
+    const normalizedWord = String(securityWord || '').trim().toLowerCase();
+    if (normalizedWord) {
+      hashedSecurityWord = await bcrypt.hash(normalizedWord, salt);
+    }
+
     // Generate employee ID for service providers
     let employeeId = null;
     if (role === 'serviceProvider') {
@@ -69,6 +77,8 @@ const createUser = async (req, res) => {
       email,
       password: hashedPassword,
       plainPassword: role === 'serviceProvider' ? finalPassword : undefined,
+      securityWord: hashedSecurityWord,
+      hasSecurityWord: !!hashedSecurityWord,
       role,
       employeeId,
       department: role === 'serviceProvider' ? department : undefined,

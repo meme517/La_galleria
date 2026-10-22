@@ -11,13 +11,18 @@ function signToken(user) {
   return jwt.sign({ id: user._id.toString(), role: user.role, email: user.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 }
 
+// Normalize a security word so "Blue Sky" and "blue sky" match
+function normalizeSecurityWord(word) {
+  return String(word || '').trim().toLowerCase();
+}
+
 // POST /api/auth/register (customers and admins)
 exports.register = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ message: errors.array()[0].msg });
 
   try {
-    const { name, email, password, role: requestedRole } = req.body;
+    const { name, email, password, role: requestedRole, securityWord } = req.body;
 
     // Validate role - only allow customer and admin registration via public endpoint
     const allowedRoles = ['customer', 'admin'];
@@ -29,7 +34,21 @@ exports.register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
 
-    const user = new User({ name, email, password: hashed, role });
+    // Store the recovery word as a hash so it is never kept in plain text
+    let hashedSecurityWord;
+    const normalizedWord = normalizeSecurityWord(securityWord);
+    if (normalizedWord) {
+      hashedSecurityWord = await bcrypt.hash(normalizedWord, salt);
+    }
+
+    const user = new User({
+      name,
+      email,
+      password: hashed,
+      role,
+      securityWord: hashedSecurityWord,
+      hasSecurityWord: !!hashedSecurityWord
+    });
     await user.save();
 
     const token = signToken(user);
@@ -63,6 +82,39 @@ exports.login = async (req, res) => {
     res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
   } catch (err) {
     console.error('Login error:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// POST /api/auth/forgot-password
+// Resets a password using the account's security word (recovery word).
+exports.forgotPassword = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ message: errors.array()[0].msg });
+
+  try {
+    const { email, securityWord, newPassword } = req.body;
+
+    const user = await User.findOne({ email });
+    // Do not reveal whether the account exists
+    if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+
+    if (user.status === 'inactive') return res.status(400).json({ message: 'Account is inactive' });
+
+    if (!user.hasSecurityWord || !user.securityWord) {
+      return res.status(400).json({ message: 'No security word set for this account. Please contact an administrator.' });
+    }
+
+    const wordMatches = await bcrypt.compare(normalizeSecurityWord(securityWord), user.securityWord);
+    if (!wordMatches) return res.status(400).json({ message: 'Invalid credentials' });
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    res.json({ message: 'Password updated successfully. You can now sign in with your new password.' });
+  } catch (err) {
+    console.error('Forgot password error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };

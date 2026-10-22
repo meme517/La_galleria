@@ -105,7 +105,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
     if (!user?.id) return;
 
     // Establish Socket.io connection
-    const newSocket = io('http://localhost:5000', {
+    const newSocket = io('http://localhost:3000', {
       auth: {
         token: localStorage.getItem('token')
       }
@@ -726,4 +726,3 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
 };
 
 export default ServiceProviderPage;
-

@@ -8,8 +8,16 @@ const router = express.Router();
 router.post('/register', [
   body('name').trim().isLength({ min: 2 }).withMessage('Name must be at least 2 characters'),
   body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
-  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+  body('securityWord').trim().isLength({ min: 3 }).withMessage('Security word must be at least 3 characters')
 ], authController.register);
+
+// Forgot password (recover access using the account security word)
+router.post('/forgot-password', [
+  body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
+  body('securityWord').trim().isLength({ min: 3 }).withMessage('Please enter your security word'),
+  body('newPassword').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+], authController.forgotPassword);
 
 // Login (for all roles)
 router.post('/login', [

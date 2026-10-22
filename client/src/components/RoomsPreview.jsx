@@ -10,26 +10,28 @@ const RoomsPreview = ({ onNavigate }) => {
   const [error, setError] = useState('');
   const { t } = useLanguage();
 
+  const fetchRooms = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      // Customer-friendly endpoint
+      const response = await axios.get('http://localhost:3000/api/rooms/available');
+      const payload = response.data || {};
+      const list = payload.rooms || payload || [];
+      setRooms(Array.isArray(list) ? list : []);
+    } catch (err) {
+      console.error('Failed to fetch rooms:', err);
+      setError(t('rooms.loadError', 'Failed to load rooms. Please try again.'));
+      setRooms([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     // Fetch real rooms so selection matches the Rooms tab/admin rooms
-    const fetchRooms = async () => {
-      try {
-        setLoading(true);
-        setError('');
-        // Customer-friendly endpoint
-        const response = await axios.get('http://localhost:5000/api/rooms/available');
-        const payload = response.data || {};
-        const list = payload.rooms || payload || [];
-        setRooms(Array.isArray(list) ? list : []);
-      } catch (err) {
-        console.error('Failed to fetch rooms:', err);
-        setError(t('rooms.loadError', 'Failed to load rooms. Please try again.'));
-        setRooms([]);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchRooms();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t]);
 
   const handleBookNow = (room) => {
@@ -80,13 +82,23 @@ const RoomsPreview = ({ onNavigate }) => {
         </ScrollReveal>
 
         {error && (
-          <div className="mb-8 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg max-w-3xl mx-auto">
-            {error}
+          <div className="mb-8 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span>{error}</span>
+            <button
+              onClick={fetchRooms}
+              className="shrink-0 font-medium text-red-700 underline hover:text-red-800 transition-colors"
+            >
+              {t('rooms.retry', 'Try again')}
+            </button>
           </div>
         )}
 
         {loading ? (
           <div className="text-center py-12 text-gray-500 dark:text-gray-400">{t('rooms.loading', 'Loading rooms...')}</div>
+        ) : rooms.length === 0 ? (
+          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+            {t('rooms.empty', 'No rooms are available right now. Please check back later.')}
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
             {rooms.map((room, index) => (
@@ -113,9 +125,16 @@ const RoomsPreview = ({ onNavigate }) => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                    {room.type || room.name || `Room ${room.roomNumber || ''}`}
-                  </h3>
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                      {room.name || room.type || `Room ${room.roomNumber || ''}`}
+                    </h3>
+                    {room.type && (
+                      <span className="shrink-0 text-xs font-semibold uppercase tracking-wide bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 px-3 py-1 rounded-full">
+                        {room.type}
+                      </span>
+                    )}
+                  </div>
                   <div className="text-sm text-gray-600 dark:text-gray-300 mb-6 space-y-1">
                     {room.roomNumber && <p>{t('rooms.roomNumber', 'Room Number')}: <span className="font-medium text-gray-800 dark:text-gray-200">{room.roomNumber}</span></p>}
                     {room.capacity && <p>{t('rooms.capacity', 'Capacity')}: <span className="font-medium text-gray-800 dark:text-gray-200">{room.capacity}</span></p>}
@@ -146,4 +165,3 @@ const RoomsPreview = ({ onNavigate }) => {
 };
 
 export default RoomsPreview;
-

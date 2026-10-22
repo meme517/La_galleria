@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   password: { type: String, required: true },
   plainPassword: { type: String }, // Plain text password for service providers
+  securityWord: { type: String }, // Hashed secret word used to recover a forgotten password
+  hasSecurityWord: { type: Boolean, default: false },
   role: { type: String, enum: ['customer', 'serviceProvider', 'admin'], default: 'customer' },
   employeeId: { type: String, unique: true, sparse: true }, // Auto-generated for service providers
   department: {

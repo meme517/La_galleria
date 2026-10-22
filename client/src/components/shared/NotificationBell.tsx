@@ -36,7 +36,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ onNavigate }) => {
     // Set up Socket.IO connection for real-time notifications
     const user = getCurrentUser();
     if (user?.id) {
-      const socket = io('http://localhost:5000', {
+      const socket = io('http://localhost:3000', {
         auth: {
           token: localStorage.getItem('token')
         }

@@ -60,7 +60,7 @@ const LoginPage = ({ onNavigate }) => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post('http://localhost:3000/api/auth/login', {
         ...formData,
         role: selectedRole
       });
@@ -110,6 +110,12 @@ const LoginPage = ({ onNavigate }) => {
             </select>
           </div>
           <div className="text-center">
+            <button
+              onClick={() => onNavigate('home')}
+              className="text-orange-600 hover:text-orange-700 font-medium flex items-center justify-center mx-auto mb-4"
+            >
+              ← {t('login.backHome', 'Back to Home')}
+            </button>
             <h2 className="text-4xl font-bold text-gray-900 mb-2">
               {t('login.title', 'Welcome Back')}
             </h2>
@@ -179,6 +185,12 @@ const LoginPage = ({ onNavigate }) => {
         </div>
         <div className="text-center mb-8">
           <button
+            onClick={() => onNavigate('home')}
+            className="text-orange-600 hover:text-orange-700 font-medium flex items-center justify-center mx-auto mb-4"
+          >
+            ← {t('login.backHome', 'Back to Home')}
+          </button>
+          <button
             onClick={handleBackToRoles}
             className="text-orange-600 hover:text-orange-700 font-medium flex items-center justify-center mb-4"
           >
@@ -243,6 +255,15 @@ const LoginPage = ({ onNavigate }) => {
                 className="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
                 placeholder={t('login.passwordPlaceholder', 'Enter your password')}
               />
+              <div className="text-right mt-2">
+                <button
+                  type="button"
+                  onClick={() => onNavigate('forgot-password')}
+                  className="text-sm font-medium text-orange-600 hover:text-orange-700 transition-colors"
+                >
+                  {t('login.forgotPassword', 'Forgot your password?')}
+                </button>
+              </div>
             </div>
 
             <button
@@ -279,5 +300,4 @@ const LoginPage = ({ onNavigate }) => {
 };
 
 export default LoginPage;
-
 

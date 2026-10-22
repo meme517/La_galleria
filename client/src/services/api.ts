@@ -2,7 +2,7 @@ import axios from 'axios';
 import { User, Stats, Staff, Booking, Order, Message, Attendance, MenuItem, Room } from '../types';
 import { getAuthToken, forceLogout } from './authService';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:3000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
