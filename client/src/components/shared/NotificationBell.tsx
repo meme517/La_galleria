@@ -3,6 +3,7 @@ import { BellIcon } from '@heroicons/react/24/outline';
 import { apiService } from '../../services/api';
 import { io } from 'socket.io-client';
 import { getCurrentUser } from '../../services/authService';
+import { SOCKET_URL } from '../../services/config';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface Notification {
@@ -36,7 +37,7 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ onNavigate }) => {
     // Set up Socket.IO connection for real-time notifications
     const user = getCurrentUser();
     if (user?.id) {
-      const socket = io('http://localhost:3000', {
+      const socket = io(SOCKET_URL, {
         auth: {
           token: localStorage.getItem('token')
         }

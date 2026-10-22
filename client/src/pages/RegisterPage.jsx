@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { API_BASE_URL } from '../services/config';
 
 const RegisterPage = ({ onNavigate }) => {
   const [step, setStep] = useState('role-selection'); // 'role-selection', 'register', or 'service-provider-info'
@@ -92,7 +93,7 @@ const RegisterPage = ({ onNavigate }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/register', {
+      const response = await axios.post(`${API_BASE_URL}/auth/register`, {
         name: formData.name,
         email: formData.email,
         password: formData.password,
@@ -484,5 +485,4 @@ const RegisterPage = ({ onNavigate }) => {
 };
 
 export default RegisterPage;
-
 

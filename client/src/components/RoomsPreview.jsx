@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import ScrollReveal from './ScrollReveal';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { API_BASE_URL } from '../services/config';
 import { useLanguage } from '../context/LanguageContext';
 
 const RoomsPreview = ({ onNavigate }) => {
@@ -15,7 +16,7 @@ const RoomsPreview = ({ onNavigate }) => {
       setLoading(true);
       setError('');
       // Customer-friendly endpoint
-      const response = await axios.get('http://localhost:3000/api/rooms/available');
+      const response = await axios.get(`${API_BASE_URL}/rooms/available`);
       const payload = response.data || {};
       const list = payload.rooms || payload || [];
       setRooms(Array.isArray(list) ? list : []);

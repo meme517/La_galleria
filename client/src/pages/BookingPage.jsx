@@ -3,6 +3,7 @@ import axios from 'axios';
 import BookingForm from '../components/BookingForm';
 import CustomerNavbar from '../components/CustomerNavbar';
 import { useLanguage } from '../context/LanguageContext';
+import { API_BASE_URL } from '../services/config';
 
 const BookingPage = ({ onNavigate }) => {
   const [bookings, setBookings] = useState([]);
@@ -41,7 +42,7 @@ const BookingPage = ({ onNavigate }) => {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3000/api/bookings/my-bookings', {
+      const response = await axios.get(`${API_BASE_URL}/bookings/my-bookings`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBookings(response.data);
@@ -60,7 +61,7 @@ const BookingPage = ({ onNavigate }) => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`http://localhost:3000/api/bookings/${id}/cancel`, {}, {
+      const response = await axios.put(`${API_BASE_URL}/bookings/${id}/cancel`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const updated = response.data;

@@ -3,6 +3,7 @@ import axios from 'axios';
 import CustomerNavbar from '../components/CustomerNavbar';
 import Footer from '../components/Footer';
 import { useLanguage } from '../context/LanguageContext';
+import { API_BASE_URL } from '../services/config';
 
 const OrdersPage = ({ onNavigate }) => {
   const [user, setUser] = useState(null);
@@ -53,7 +54,7 @@ const OrdersPage = ({ onNavigate }) => {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/menu/public');
+      const response = await axios.get(`${API_BASE_URL}/menu/public`);
       const items = Array.isArray(response.data) ? response.data : (response.data.menuItems || []);
       setMenuItems(items);
 
@@ -104,7 +105,7 @@ const OrdersPage = ({ onNavigate }) => {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3000/api/orders/my-orders', {
+      const response = await axios.get(`${API_BASE_URL}/orders/my-orders`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Handle both array and object response formats
@@ -199,7 +200,7 @@ const OrdersPage = ({ onNavigate }) => {
         .filter(Boolean)
         .join(' | ');
       const response = await axios.post(
-        'http://localhost:3000/api/orders',
+        `${API_BASE_URL}/orders`,
         {
           items: cart.map(item => ({
             menuItem: item.id,

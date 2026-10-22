@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { API_BASE_URL } from '../services/config';
 
 const LoginPage = ({ onNavigate }) => {
   const [step, setStep] = useState('role-selection'); // 'role-selection' or 'login'
@@ -60,7 +61,7 @@ const LoginPage = ({ onNavigate }) => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', {
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
         ...formData,
         role: selectedRole
       });
@@ -300,4 +301,3 @@ const LoginPage = ({ onNavigate }) => {
 };
 
 export default LoginPage;
-

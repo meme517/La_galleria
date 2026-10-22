@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ClipboardDocumentListIcon, ClockIcon, CheckCircleIcon, DocumentTextIcon, EnvelopeIcon, EnvelopeOpenIcon, ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { apiService } from '../services/api';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../services/config';
 import { logout } from '../services/authService';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
 import { useLanguage } from '../context/LanguageContext';
@@ -105,7 +106,7 @@ const ServiceProviderPage: React.FC<ServiceProviderPageProps> = ({ onNavigate })
     if (!user?.id) return;
 
     // Establish Socket.io connection
-    const newSocket = io('http://localhost:3000', {
+    const newSocket = io(SOCKET_URL, {
       auth: {
         token: localStorage.getItem('token')
       }

@@ -3,6 +3,7 @@ import { PaperAirplaneIcon, InboxIcon, PencilSquareIcon, UserIcon, EnvelopeOpenI
 import { apiService } from '../../services/api';
 import { Staff } from '../../types';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../services/config';
 
 interface Message {
     id: string;
@@ -99,7 +100,7 @@ const MessagingEmployees: React.FC = () => {
     useEffect(() => {
         // Socket.io integration for real-time messages
         if (user?.id) {
-            const socket = io('http://localhost:3000');
+            const socket = io(SOCKET_URL);
             socket.emit('join', user.id);
 
             socket.on('newMessage', (message) => {

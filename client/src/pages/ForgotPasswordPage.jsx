@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { API_BASE_URL } from '../services/config';
 
 const ForgotPasswordPage = ({ onNavigate }) => {
   const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ const ForgotPasswordPage = ({ onNavigate }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/forgot-password', {
+      const response = await axios.post(`${API_BASE_URL}/auth/forgot-password`, {
         email: formData.email,
         securityWord: formData.securityWord,
         newPassword: formData.newPassword

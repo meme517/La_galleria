@@ -134,7 +134,7 @@ app.use((err, req, res, next) => {
 if (require.main === module) {
 	mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
 		.then(() => {
-			console.log('MongoDB connected to', mongoUri);
+			console.log('MongoDB connected');
 			startPayrollReminderScheduler();
 		})
 		.catch(err => {
